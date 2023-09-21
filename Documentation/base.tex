@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definition du document %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[a4paper, 12pt,table]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,french]{babel}
+\usepackage{packages/sleek}
+\usepackage{packages/sleek-title}
+\usepackage{packages/sleek-listings}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{comment}
+\usepackage{stackengine}
+\usepackage{array}
+
+\graphicspath{ {./images/} }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definitions des differentes commandes %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{%
+  \markboth{\MakeUppercase{%
+  \chaptername}\ \thechapter.%
+  \ #1}{}}
+\renewcommand{\sectionmark}[1]{
+  \markright{\thesection.\ #1}}
+\fancyhf{}
+\lhead[\thepage]{\leftmark}
+\lfoot{\belowbaseline[0pt]{\includegraphics[scale=0.07]{iut}}}
+\rfoot[\thepage]{\rightmark}
+\rhead{NodeMunch}
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+
+\tikzset{pics/.cd, check/.style={code={%
+\pgfgettransformentries{\tmpxx}{\tmp}{\tmp}{\tmp}{\tmp}{\tmp}
+\draw[line width=\tmpxx*1pt,draw=none,fill=blue!60] (0,.33) -- (.25,0) to 
+  (0.8,.6) to (.72,.68) to (.25,.18) to (0.08,.40)-- cycle;}}}
+\tikzset{pics/.cd, clipcheckmark/.style={code={% 
+\pgfgettransformentries{\tmpxx}{\tmp}{\tmp}{\tmp}{\tmp}{\tmp}
+\draw[line width=\tmpxx*1pt,draw=none,fill=blue!60] (0.1,.19) -- (.25,0) to 
+  (0.8,.6) to (.72,.68) to (.25,.18) to (0.18,.26)-- cycle;}}}
+\def\doublecheckmark{\begin{tikzpicture}[baseline={(0,0)}]
+\path (0,0) pic[scale=0.4]{check} (0.16,0) pic[scale=0.4]{clipcheckmark};
+\end{tikzpicture}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Cahier des Charges %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%
+% Page de Garde %
+%%%%%%%%%%%%%%%%%
+
+
+\logo{logo}
+\institute{IUT Clermont-Ferrand}
+\faculty{2ème année de BUT Informatique}
+
+\title{NodeMunch}
+\subtitle{Premier rapport}
+\author{\textit{Auteurs}\\
+  Baptiste \textsc{BRUNET} \tab Lola \textsc{CHALMIN}\\
+  Cléo \textsc{EIRAS} \tab \tab Yann \textsc{CHAMPEAU}\\
+  \tab Maxime \textsc{POINT} \tab Nicolas \textsc{BLONDEAU}
+}
+\date{29 Septembre 2023}
+
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Table des Matieres %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+
+\setlength{\parindent}{3ex}
+
+
+%%%%%%%%%%%%%%%%
+% Introduction %
+%%%%%%%%%%%%%%%%
+
+\chapter{Introduction}
+Dans ce premier rapport de projet, nous allons procéder à une description succinte du projet NodeMunch. Nous avons sélectionné ce projet et allons, avec l'aide du product owner et de ses descriptions, réaliser ces applications. Nous développerons ce jeu sous Blazor, Kotlin, React Native, Js et bien d'autres et nous nous aiderons de logiciels tels que Visual Studio. L'intérêt de ce projet est d'avoir une expérience en équipe sur la conception et le développement d'un jeu, mais aussi de comprendre le besoin du client et le retranscire fidèlement. Nous travaillerons sous la méthode SCRUM-lite.
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Presentation du projet %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Présentation du projet}
+
+\section{Présentation des membres du groupe}
+\section{Description succinte du projet}
+Notre projet a pour but de programmer une application permettant de jouer au jeu Node Kayles. Les règles du jeu sont simples :
+Le plateau de jeu est un graphe. Chacun leur tour, les joueurs choisissent un sommet du graphe, et le résultat de cette action est de supprimer le sommet ainsi que tous ses voisins du graphe. Un joueur perd s'il ne peut pas jouer lors de son tour (le graphe est devenu vide).
+
+Notre programme comportera une version mobile, une version web ainsi qu'une application de monitoring afin de traquer les performances et l'activité de notre application.
+
+Notre application sera implémentée sur un serveur et stockera les informations dans une base de données.
+
+Afin de permettre au joueur de jouer seul, nous développerons une intelligence artificielle capable de jouer au jeu Node Kayles.
+
+Pour accomplir une tâche de cette ampleur dans le temps qui nous est accordé, nous agirons de façon méthodique et organisée en utilisant des outils tels que : les principes de programmation S.O.L.I.D. , les méthodes de suivi de projet SCRUM-lite, un diagramme GANTT, des KANBAN …
+
+\section{Génèse du Projet}
+
+Le jeu de Kayles sur les graphes, ou Node Kayles est un jeu existant indépendamment de l’application à créer pour ce projet.
+Notre client, monsieur Foucaud, en a eu connaissance par différentes recherches de ses collègues dans le domaine des graphes, et sur le jeu de Kayles lui-même.
+Étant adepte de jeux de réflexion stratégiques ainsi qu’intéressé par le domaine des graphes, et après n’avoir trouvé aucun jeu de Node Kayles existant, il nous a finalement sollicité dans le but de créer une application répondant à ce besoin.
+
+\section{Les livrables attendus}
+\begin{itemize}
+	\item{}
+	et
+\end{itemize}
