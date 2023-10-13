@@ -1,6 +1,6 @@
 <?php
 
-require ('Connection.php');
+require_once('Connection.php');
 
 class GatewayLink
 {
@@ -11,5 +11,23 @@ class GatewayLink
         $this->connection = $connection;
     }
 
+    public function createLink(int $nodeA, int $nodeB) {
+
+
+        $query = "INSERT INTO Link VALUES (:nodeA, :nodeB)";
+
+        try {
+
+            $this->connection->executeQuery($query, array(':nodeA' => array($nodeA, PDO::PARAM_INT), ':nodeB' => array($nodeB, PDO::PARAM_INT)));
+        }
+
+        catch (PDOException $e) {
+
+            echo $e->getMessage();
+
+        }
+
+        echo 'insertion reussie';
+    }
 
 }

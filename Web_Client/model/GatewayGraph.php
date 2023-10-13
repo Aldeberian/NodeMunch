@@ -43,14 +43,17 @@ class GatewayGraph
         $query = "SELECT * FROM Graph";
 
         try {
+
             $this->connection->executeQuery($query, array());
 
+            /*
             $displayResult = $this->connection->getResults();
 
             foreach ($displayResult as $value) {
 
                 echo "[$value[0]]"." => "."Nodes : $value[1] / Links : $value[2]"."<br>";
             }
+            */
         }
 
         catch (PDOException $e) {
