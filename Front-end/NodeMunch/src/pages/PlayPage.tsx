@@ -1,6 +1,10 @@
+import Graph from '../functions/Graphs.ts'
+
+let grap = new Graph("auto");
+
 function Play() {
     return (
-        <h1>Jouer</h1>
+        <h1 onClick={grap.afficherG}>Jouer</h1>
     )
 }
 

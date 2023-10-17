@@ -13,7 +13,7 @@ class NodeP{
     }
 }
 
-class Graph{
+export default class Graph{
     nodes : Array<NodeP>;
 
     constructor(type="auto"){
@@ -27,8 +27,8 @@ class Graph{
     afficherG(): void {
         this.nodes.forEach((node) => console.log(node.afficher));
     }
+
+    afficherTest() : void {
+        console.log("test");
+    }
 }
-
-let grap = new Graph("auto");
-
-grap.afficherG();
