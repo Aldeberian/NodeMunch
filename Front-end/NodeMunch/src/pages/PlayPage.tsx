@@ -4,7 +4,8 @@ const grap = new Graph();
 
 function Play() {
     const handleButtonClick = () => {
-        grap.afficherPos();
+        grap.printPosition();
+        grap.printLinks();
     }
 
     return (
