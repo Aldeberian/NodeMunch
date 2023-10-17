@@ -371,5 +371,5 @@ FodyWeavers.xsd
 .idea/
 local.properties
 
-# Directory Build overrides for local setups
+# Directory Build overrides for local setup
 Directory.Build.Override.props
