@@ -1,11 +1,15 @@
-import Graph from '../functions/Graphs.ts'
+import Graph from '../functions/Graphs.ts';
 
-let grap = new Graph("auto");
+const grap = new Graph();
 
 function Play() {
+    const handleButtonClick = () => {
+        grap.afficherPos();
+    }
+
     return (
-        <h1 onClick={grap.afficherG}>Jouer</h1>
+        <h1 onClick={handleButtonClick}>Jouer</h1>
     )
 }
 
-export default Play
+export default Play;
