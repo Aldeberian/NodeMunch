@@ -81,4 +81,22 @@ class Graph
     return "Id : $this->id"."<br>"."Number of Nodes : $this->nodes"."<br>"."Number of links : $this->links";
 
     }
+
+
+    /**
+     * @param int $idNode Id of the node that is going to be deleted (in case of changing mind of the user)
+     */
+    public function deleteNode(int $idNode) : void {
+
+    }
+
+    /**
+     * @param int $idNode Id of the node that will be created and inserted int the future graph.
+     */
+    public function createNode(int $idNode) : void {
+
+    }
+
+
+
 }
