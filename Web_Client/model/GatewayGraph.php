@@ -112,10 +112,5 @@ class GatewayGraph
         }
     }
 
-    /**
-     * @param int $idGraph The id of the graph that is going to be saved
-     */
-    public function saveGraph(int $idGraph) : void {
 
-    }
 }
