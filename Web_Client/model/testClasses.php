@@ -15,6 +15,10 @@ try {
     echo "PDOException";
 }
 
+
+//==== BIEN FAIRE LES TRY/CATCH ICI, LORS DE L'APPEL DES FONCTIONS ====
+
+
 $gatewayGraph = new GatewayGraph($connection);
 $gatewayLink = new GatewayLink($connection);
 
