@@ -1,5 +1,10 @@
 <?php
 
+namespace controller;
+
+use Twig_Environment;
+use Twig_Loader_Filesystem;
+
 require_once('../model/gateways/GatewayGraph.php');
 
 //En gros jsais pas comment installer twig sans les permissions de l'IUT
@@ -14,20 +19,21 @@ class GuestController
     /**
      * When the Controller is created, he has to start a session
      */
-    public function __construct(){
+    public function __construct()
+    {
         global $twig;
         session_start();
         $errTab = [];
 
         //load de twig (normalement)
         $loader = new Twig_Loader_Filesystem('templates');
-        $twig = new Twig_Environment($loader, array( 'cache'
-        => false ));
+        $twig = new Twig_Environment($loader, array('cache'
+        => false));
 
-        try{
+        try {
             //on récupère la requête GET ou POST
             $action = $_REQUEST['action'] ?? null;
-            switch($action){
+            switch ($action) {
                 //récupère les données du graphe et après faudrait les retourner au JavaScript qui s'occupera de les afficher
                 case 'getGraph':
                     try {
@@ -56,17 +62,13 @@ class GuestController
                     break;
 
                 default:
-                    $errTab[]="Erreur d'appel php";
+                    $errTab[] = "Erreur d'appel php";
                     echo $twig->render('../views/userProfileView.html', ['../views/errorView.html' => $errTab]);
                     break;
             }
 
-        } catch (PDOException $e){
-            $errTab[]="Erreur inattendue !";
+        } catch (PDOException $e) {
+            $errTab[] = "Erreur inattendue !";
         }
-    }
-
-
-
     }
 }

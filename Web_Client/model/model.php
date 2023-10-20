@@ -2,15 +2,15 @@
 
 namespace model;
 
-use GatewayGraph;
-use GatewayUser;
-use GatewayLink;
-use model\Connection;
+require_once ('classes/Connection.php');
+require ('gateways/GatewayGraph.php');
+require ('gateways/GatewayLink.php');
+require ('gateways/GatewayUser.php');
 
 
 class model
 {
-    /*public static function getAllDataFromGateways() {
+    public static function getAllDataFromGateways() {
 
         try {
 
@@ -27,15 +27,20 @@ class model
         $gatewayLink = new GatewayLink($connection);
         $gatewayUser = new GatewayUser($connection);
 
-        $graphs = $gatewayGraph->getDataGraph();
-        $users = $gatewayUser->getDataUser();
-        $links = $gatewayLink->getDataLink();
+        $gatewayGraph->getDataGraph();
+        //$graphs = $gatewayGraph->getDataGraph();
+        //$users = $gatewayUser->getDataUser();
+        //$links = $gatewayLink->getDataLink();
 
-        $data = ['Graph' => $graphs, 'User' => $links, 'User' => $users];
+        //$data = ['Graph' => $graphs, 'User' => $links, 'User' => $users];
 
-        return $data;
+        //return $data;
 
-    }*/
+    }
 
 
 }
+
+echo "hey";
+
+model::getAllDataFromGateways();

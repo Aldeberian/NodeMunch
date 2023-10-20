@@ -1,8 +1,11 @@
 <?php
 
-require_once('../classes/Connection.php');
+namespace model\gateways;
 
-use model\Connection;
+
+use model\classes\Connection;
+
+require_once ('../classes/Connection.php');
 
 class GatewayLink
 {
@@ -20,10 +23,10 @@ class GatewayLink
 
         try {
 
-            $this->connection->executeQuery($query, array(':nodeA' => array($nodeA, PDO::PARAM_INT), ':nodeB' => array($nodeB, PDO::PARAM_INT)));
+            $this->connection->executeQuery($query, array(':nodeA' => array($nodeA, \PDO::PARAM_INT), ':nodeB' => array($nodeB, \PDO::PARAM_INT)));
         }
 
-        catch (PDOException $e) {
+        catch (\PDOException $e) {
 
             echo $e->getMessage();
 

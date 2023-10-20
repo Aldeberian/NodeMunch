@@ -1,8 +1,11 @@
 <?php
 
-require_once('../classes/Connection.php');
+namespace model\gateways;
 
-use model\Connection;
+
+use model\classes\Connection;
+
+require_once ('../classes/Connection.php');
 
 
 class GatewayUser

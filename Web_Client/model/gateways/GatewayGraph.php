@@ -1,8 +1,10 @@
 <?php
 
-require_once('../classes/Connection.php');
+namespace model\gateways;
 
-use model\Connection;
+use model\classes\Connection;
+
+require_once('../classes/Connection.php');
 
 
 class GatewayGraph
@@ -25,8 +27,8 @@ class GatewayGraph
         $query = "INSERT INTO Graph VALUES(:id, :nm)";
 
         $this->connection->executeQuery($query, array(
-            ':id' => array(NULL, PDO::PARAM_INT),
-            ':nm' => array($name, PDO::PARAM_STR)));
+            ':id' => array(NULL, \PDO::PARAM_INT),
+            ':nm' => array($name, \PDO::PARAM_STR)));
     }
 
     /**
@@ -52,6 +54,18 @@ class GatewayGraph
     public function deleteGraph(int $idGraph) {
         $query = "DELETE FROM Graph WHERE id=:idGraph";
 
-        $this->connection->executeQuery($query, array(':idGraph' => array($idGraph, PDO::PARAM_INT)));
+        $this->connection->executeQuery($query, array(':idGraph' => array($idGraph, \PDO::PARAM_INT)));
+    }
+
+    public function getDataGraph() {
+
+        $query = "SELECT * FROM Graph";
+
+        $this->connection->executeQuery($query, NULL);
+
+        $result = $this->connection->getResults();
+
+        var_dump($result);
+
     }
 }
