@@ -1,6 +1,8 @@
 <?php
 
-require_once('Connection.php');
+require_once('../classes/Connection.php');
+
+use model\Connection;
 
 class GatewayLink
 {

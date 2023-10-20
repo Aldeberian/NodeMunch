@@ -4,6 +4,8 @@ class AdminController
 {
 
     public function __construct() {
+        global $twig;
+        session_start();
 
 
     }

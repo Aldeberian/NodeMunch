@@ -1,6 +1,6 @@
 <?php
 
-namespace graph;
+namespace model;
 
 class Graph
 {

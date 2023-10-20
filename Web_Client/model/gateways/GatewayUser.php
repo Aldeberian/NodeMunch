@@ -1,18 +1,29 @@
 <?php
 
-require('User.php');
+require_once('../classes/Connection.php');
 
-use user\User;
+use model\Connection;
+
 
 class GatewayUser
 {
-    public static function createUser() {
+
+    public Connection $connection;
+
+
+    public function __construct(Connection $connection) {
+
+        $this->connection = $connection;
+    }
+
+
+    public function createUser() {
 
 
 
     }
 
-    public static function readUser(User $user) {
+    public function readUser(int $idUser) {
 
 
     }
@@ -20,14 +31,14 @@ class GatewayUser
     /**
      * @param int $idUser The user to be updated by the admin.
      */
-    public static function updateUser(int $idUser) {
+    public function updateUser(int $idUser) {
 
     }
 
     /**
      * @param int $idUser The user to delete in the list.
      */
-    public static function deleteUser(int $idUser) {
+    public function deleteUser(int $idUser) {
 
     }
 
