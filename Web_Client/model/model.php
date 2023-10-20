@@ -2,10 +2,11 @@
 
 namespace model;
 
+use model\classes\Connection;
+use model\gateways\GatewayGraph;
+
 require_once ('classes/Connection.php');
 require ('gateways/GatewayGraph.php');
-require ('gateways/GatewayLink.php');
-require ('gateways/GatewayUser.php');
 
 
 class model
@@ -24,8 +25,8 @@ class model
 
 
         $gatewayGraph = new GatewayGraph($connection);
-        $gatewayLink = new GatewayLink($connection);
-        $gatewayUser = new GatewayUser($connection);
+        //$gatewayLink = new GatewayLink($connection);
+        //$gatewayUser = new GatewayUser($connection);
 
         $gatewayGraph->getDataGraph();
         //$graphs = $gatewayGraph->getDataGraph();
@@ -40,7 +41,5 @@ class model
 
 
 }
-
-echo "hey";
 
 model::getAllDataFromGateways();

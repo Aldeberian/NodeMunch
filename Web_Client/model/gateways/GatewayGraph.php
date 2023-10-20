@@ -4,8 +4,6 @@ namespace model\gateways;
 
 use model\classes\Connection;
 
-require_once('../classes/Connection.php');
-
 
 class GatewayGraph
 {
@@ -61,7 +59,7 @@ class GatewayGraph
 
         $query = "SELECT * FROM Graph";
 
-        $this->connection->executeQuery($query, NULL);
+        $this->connection->executeQuery($query, array());
 
         $result = $this->connection->getResults();
 
