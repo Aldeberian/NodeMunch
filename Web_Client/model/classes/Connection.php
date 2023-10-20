@@ -1,6 +1,5 @@
 <?php
 
-namespace model;
 
 class Connection extends PDO { 
 

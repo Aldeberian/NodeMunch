@@ -1,6 +1,7 @@
 <?php
 
-namespace model;
+
+use graph\Graph;
 
 require('classes/Connection.php');
 require('gateways/GatewayGraph.php');
@@ -16,12 +17,20 @@ try {
     echo "PDOException";
 }
 
+$graph = new Graph(1);
+$graph2 = new Graph(2, "Nice graph");
+$graph3 = new Graph(3, "Nice graph", 12345654321);
+
+echo $graph;
+echo $graph2;
+echo $graph3;
+
 
 //==== BIEN FAIRE LES TRY/CATCH ICI, LORS DE L'APPEL DES FONCTIONS ====
 
 
-$gatewayGraph = new GatewayGraph($connection);
-$gatewayLink = new GatewayLink($connection);
+//$gatewayGraph = new GatewayGraph($connection);
+//$gatewayLink = new GatewayLink($connection);
 
 //Ici les methodes de GatewayGraph ne fonctionneront pas tant que la table Graphe n'existe pas dans la base de données
 
