@@ -16,6 +16,8 @@ class User
 
     private int $favGraphs;
 
+    private bool $isBan;
+
     /**
      * @param int $id
      * @param string $pseudo
@@ -32,6 +34,7 @@ class User
         $this->email = $email;
         $this->myGraphs = $myGraphs;
         $this->favGraphs = $favGraphs;
+        $this->isBan = false;
     }
 
 
@@ -130,4 +133,21 @@ class User
     {
         $this->favGraphs = $favGraphs;
     }
+
+    /**
+     * @return bool
+     */
+    public function isBan(): bool
+    {
+        return $this->isBan;
+    }
+
+    /**
+     * @param bool $isBan
+     */
+    public function setIsBan(bool $isBan): void
+    {
+        $this->isBan = $isBan;
+    }
+
 }

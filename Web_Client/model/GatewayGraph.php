@@ -16,9 +16,11 @@ class GatewayGraph
     }
 
     /**
-     * @param int $nodes 
+     * This function will create a graph with all the dots that will be selected by the creator
+     * @param int $nodes
      * @param int $links
-     */
+     **/
+     
     public function createGraph(int $nodes, int $links) {
         $query = "INSERT INTO Graph VALUES(:id, :nodes, :links)";
 
@@ -73,4 +75,5 @@ class GatewayGraph
 
         }
     }*/
+    }
 }
