@@ -1,9 +1,10 @@
 <?php
 
+namespace model;
 
-require('Connection.php');
-require('GatewayGraph.php');
-require('GatewayLink.php');
+require('classes/Connection.php');
+require('gateways/GatewayGraph.php');
+require('gateways/GatewayLink.php');
 
 try {
 
