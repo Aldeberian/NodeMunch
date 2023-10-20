@@ -4,6 +4,7 @@ require_once('../classes/Connection.php');
 
 use model\Connection;
 
+
 class GatewayGraph
 {
     public Connection $connection;
@@ -35,9 +36,9 @@ class GatewayGraph
     public function updateGraphName(string $name) {
         $query = "UPDATE Graph SET 'links' = :link WHERE id=:idGraph";
 
-        $this->connection->executeQuery($query, array(
+        /*$this->connection->executeQuery($query, array(
             ':link' => array($idLink, PDO::PARAM_INT),
-            ':idGraph' => array($idGraph, PDO::PARAM_INT)));
+            ':idGraph' => array($idGraph, PDO::PARAM_INT)));*/
     }
 
     public function updateGraphNode(int $idGraph, int $idLink) {
