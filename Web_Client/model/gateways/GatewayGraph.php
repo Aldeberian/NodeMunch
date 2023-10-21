@@ -4,7 +4,9 @@ namespace model\gateways;
 
 use model\classes\Connection;
 
-
+/**
+ * Class that manages the acces to graphs using SQL queries
+ */
 class GatewayGraph
 {
     public Connection $connection;
@@ -30,8 +32,7 @@ class GatewayGraph
     }
 
     /**
-     * @param int $idGraph
-     * @param int $idLink
+     * @param string $name
      */
     public function updateGraphName(string $name) {
         $query = "UPDATE Graph SET 'links' = :link WHERE id=:idGraph";
@@ -41,6 +42,11 @@ class GatewayGraph
             ':idGraph' => array($idGraph, PDO::PARAM_INT)));*/
     }
 
+    /**
+     * @param int $idGraph
+     * @param int $idLink
+     * @return void
+     */
     public function updateGraphNode(int $idGraph, int $idLink) {
         $query = "UPDATE Graph SET 'nodes' = :node WHERE id=:idGraph";
 
@@ -49,12 +55,20 @@ class GatewayGraph
             ':idGraph' => array($idGraph, PDO::PARAM_INT)));
     }
 
+    /**
+     * @param int $idGraph
+     * @return void
+     */
     public function deleteGraph(int $idGraph) {
         $query = "DELETE FROM Graph WHERE id=:idGraph";
 
         $this->connection->executeQuery($query, array(':idGraph' => array($idGraph, \PDO::PARAM_INT)));
     }
 
+    /**
+     * Get all the graphs from the database
+     * @return void
+     */
     public function getDataGraph() {
 
         $query = "SELECT * FROM Graph";
