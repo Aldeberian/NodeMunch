@@ -8,9 +8,12 @@ function MenuPage() {
             <img src="Logo.png" alt="Logo" className="logo"/>
             <div className = "menu">
                 <MainTitle>NodeMunch</MainTitle>
-                <Button url='/'>Main page button test</Button>
-                <Button url='/play'>Play</Button>
-                <Button url='/parameters'>Parameters</Button>
+                <Button url='/' color='#3498db'>Without effect</Button>
+                <Button url='/' color='#3498db' hasEffect={true}>With effect</Button>
+                <Button url='/play' color='green'>Play</Button>
+                <Button url='/play' color='green' hasEffect={true}>Play</Button>
+                <Button url='/parameters' color='red'>Parameters</Button>
+                <Button url='/parameters' color='red' hasEffect={true}>Parameters</Button>
             </div>
         </div>
     )
