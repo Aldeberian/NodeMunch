@@ -20,7 +20,8 @@ class GatewayGraph
     }
 
 
-    /** This function inserts a graph into the database
+    /**
+     * This function inserts a graph into the database
      * @param string $name Name of the graph
      */
     public function insertGraphIntoDatabase(string $name) {
@@ -66,18 +67,16 @@ class GatewayGraph
     }
 
     /**
-     * Get all the graphs from the database
-     * @return void
+     * !Really important method!
+     * Get all the graphs from the database as an array
+     * @return array
      */
-    public function getDataGraph() {
+    public function getDataGraph() : array {
 
         $query = "SELECT * FROM Graph";
 
         $this->connection->executeQuery($query, array());
 
-        $result = $this->connection->getResults();
-
-        var_dump($result);
-
+        return $this->connection->getResults();
     }
 }

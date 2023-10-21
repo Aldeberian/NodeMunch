@@ -2,12 +2,11 @@
 
 namespace model\gateways;
 
-
 use model\classes\Connection;
 
-require_once ('../classes/Connection.php');
-
-
+/**
+ * Class that manages the acces to users using SQL queries
+ */
 class GatewayUser
 {
 
@@ -57,6 +56,20 @@ class GatewayUser
      */
     public function likeGraph(int $idGraph) : void {
 
+    }
+
+    /**
+     * !Really important method!
+     * Get all the users from the database as an array
+     * @return array
+     */
+    public function getDataUser() : array {
+
+        $query = "SELECT * FROM User";
+
+        $this->connection->executeQuery($query, array());
+
+        return $this->connection->getResults();
     }
 
 }
