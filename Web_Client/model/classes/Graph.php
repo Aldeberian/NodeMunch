@@ -17,19 +17,14 @@ class Graph
     public function __construct(int $id, ?string $name, ?int $idImage)
     {
         $this->id = $id;
-
+        ($name == null) ? $this->name = $id : $this->name = $name; // If there's no name in parameters, the name of the graph is set to the id
         $this->idImage = $idImage;
-        if($name == null){
-            print("NULL");
-            $this->name = $id;
-        }else{
-            print("NOT NULL");
-        }
-        $this->name = $name;
-        ($idImage == null) ? print("Image id is null") : print("Image id is not null");
-        $this->idImage = 10;
     }
 
 
-    public function __toString(): string { return "ID : $this->id"."<br>"."Name : $this->name"."<br>"."Image preview ID : $this->idImage"."<br>"; }
+    public function __toString(): string { 
+        return  "ID : $this->id"."<br>".
+                "Name : $this->name"."<br>".
+                "Image preview ID : $this->idImage"."<br>";
+    }
 }
