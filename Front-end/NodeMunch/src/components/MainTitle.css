@@ -19,48 +19,28 @@
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: black;
   top: 25%;
+  animation: titleAnimation 2s ease-in-out infinite;
 }
 
-.hello:nth-of-type(1) {
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s;
+.t1 {
+  animation-delay: 0.2s;
 }
 
-.hello:nth-of-type(2) {
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s;
+.t2 {
+  animation-delay: 0.1s;
 }
 
-.hello:nth-of-type(3) {
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s;
+.t3 {
+  animation-delay: 0s;
 }
 
-.hello:nth-of-type(4) {
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-delay: -0.1s;
-          animation-delay: -0.1s;
+.t4 {
+  animation-delay: -0.1s;
 }
 
-@-webkit-keyframes wave {
+@keyframes titleAnimation {
   40%, 50% {
-    transform: translate(-50%, -65%) scale(1.05);
-  }
-  0%, 90%, 100% {
-    transform: translate(-50%, -45%) scale(0.95);
-  }
-}
-
-@keyframes wave {
-  40%, 50% {
-    transform: translate(-50%, -65%) scale(1.05);
+    transform: translate(-50%, -55%) scale(1.05);
   }
   0%, 90%, 100% {
     transform: translate(-50%, -45%) scale(0.95);

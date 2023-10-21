@@ -1,21 +1,27 @@
 import './MenuPage.css'
 import Button from '../components/Button.tsx'
 import MainTitle from '../components/MainTitle.tsx'
+import WavyBackground from '../components/WavyBackground.tsx'
 
 function MenuPage() {
     return (
-        <div>
-            <img src="Logo.png" alt="Logo" className="logo"/>
-            <div className = "menu">
-                <MainTitle>NodeMunch</MainTitle>
-                <Button url='/' color='#3498db'>Without effect</Button>
-                <Button url='/' color='#3498db' hasEffect={true}>With effect</Button>
-                <Button url='/play' color='green'>Play</Button>
-                <Button url='/play' color='green' hasEffect={true}>Play</Button>
-                <Button url='/parameters' color='red'>Parameters</Button>
-                <Button url='/parameters' color='red' hasEffect={true}>Parameters</Button>
+        <div className='containerTopPage'>
+            <MainTitle>NodeMunch</MainTitle>
+            <WavyBackground firstTimeLoad={true}/>
+            
+            <div className='container'>
+                <a href='https://youtu.be/dQw4w9WgXcQ' target='_blank'>
+                    <img src="Logo.png" alt="Logo" className="logo"/>
+                </a>
+                <div className = "elements">
+                    <Button url='/' color='#3498db' hasEffect={true}>This page</Button>
+                    <Button url='/play' color='orange' hasEffect={true}>Play</Button>
+                    <Button url='/parameters' color='red' hasEffect={true}>Options</Button>
+                    <Button url='/credits' color='green' hasEffect={true}>Credits</Button>
+                </div>
             </div>
         </div>
     )
 }
+
 export default MenuPage
