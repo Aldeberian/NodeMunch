@@ -1,4 +1,5 @@
 .menu {
+    float: none;
     margin: auto;
     display: flex;
     width: 100%;
@@ -8,8 +9,9 @@
 }
 
 .logo {
-    width: 200px;
-    border: 2px solid black;
+    width: 100px;
+    float: right;
+    border: 3px solid black;
     border-radius: 25px;
     margin-bottom: 10%;
 }
