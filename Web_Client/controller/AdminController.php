@@ -3,12 +3,14 @@
 namespace controller;
 
 use Exception;
+use model\Model;
 use PDOException;
 
 class AdminController
 {
 
     public function __construct() {
+
         global $twig;
         session_start();
 
@@ -25,10 +27,6 @@ class AdminController
                     $this->reInit();
                     break;
 
-                case 'validate' :
-
-                    $this->validate();
-                    break;
 
                 case 'deleteAGraph' :
 
@@ -70,17 +68,21 @@ class AdminController
     public function reInit() {
 
 
-    }
+        //global $twig;
 
-    public function validate() {
+        $model = new Model();
 
-
+        $dataView = $model->getAllDataFromGateways();
     }
 
 
     public function deleteAGraph() {
 
+        //global $twig;
 
+        $model = new Model();
+
+        $data = $model->getAllDataFromGateways();
     }
 
     public function banUser() {

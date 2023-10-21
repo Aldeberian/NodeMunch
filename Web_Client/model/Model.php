@@ -13,13 +13,13 @@ require ('gateways/GatewayUser.php');
 require ('gateways/GatewayLink.php');
 
 
-class model
+class Model
 {
     /**
      * !Really important method!
      *  Primary function that get all the data from different gateways and save it in $data then return it.
      */
-    public static function getAllDataFromGateways() {
+    public static function getAllDataFromGateways() : array{
 
         try {
 
@@ -31,7 +31,6 @@ class model
             echo "PDOException";
         }
 
-
         $gatewayGraph = new GatewayGraph($connection); //l'IDE râle car peut-être pas définie, raison : instanciation dans un try and catch, il aime pas
         $gatewayLink = new GatewayLink($connection);
         $gatewayUser = new GatewayUser($connection);
@@ -42,13 +41,9 @@ class model
 
         $data = ['Graph' => $graphs, 'Link' => $links, 'User' => $users];
 
-        var_dump($data);
-
-        //return $data; //La fonction sera appelée et à terme devra retourner la $data, appelée dans un controlleur
+        return $data;
 
     }
 
 
 }
-
-//model::getAllDataFromGateways();
