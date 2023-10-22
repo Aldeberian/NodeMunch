@@ -21,8 +21,6 @@ class GatewayUser
 
     public function createUser() {
 
-
-
     }
 
     public function readUser(int $idUser) {
@@ -31,9 +29,32 @@ class GatewayUser
     }
 
     /**
-     * @param int $idUser The user to be updated by the admin.
+     * @param int $idUser The user to be ban by the admin.
      */
-    public function updateUser(int $idUser) {
+    public function updateUserBan(int $idUser) {
+        $query = "UPDATE User SET isBan = 1 WHERE id = :idUser";
+        try {
+            $this->connection->executeQuery($query, array(
+                ':idUser' => array($idUser, \PDO::PARAM_INT)));
+        }
+        catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+
+    }
+
+    /**
+     * @param int $idUser The user to be unban by the admin.
+     */
+    public function updateUserDeBan(int $idUser) {
+        $query = "UPDATE User SET isBan = 0 WHERE id = :idUser";
+        try {
+            $this->connection->executeQuery($query, array(
+                ':idUser' => array($idUser, \PDO::PARAM_INT)));
+        }
+        catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
 
     }
 
@@ -41,7 +62,9 @@ class GatewayUser
      * @param int $idUser The user to delete in the list.
      */
     public function deleteUser(int $idUser) {
-
+        $query = "DELETE FROM User WHERE id = :idUser";
+        $this->connection->executeQuery($query, array(
+            ':idUser'=>array($idUser, \PDO::PARAM_INT)));
     }
 
     /**

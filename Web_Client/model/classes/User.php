@@ -16,7 +16,7 @@ class User
 
     private int $favGraphs;
 
-    private bool $isBan;
+    private int $isBan;
 
     /**
      * @param int $id
@@ -34,7 +34,7 @@ class User
         $this->email = $email;
         $this->myGraphs = $myGraphs;
         $this->favGraphs = $favGraphs;
-        $this->isBan = false;
+        $this->isBan = 0; //have modified to an int because in the database it's preferred to use int to stock the state of isBan
     }
 
 
@@ -137,15 +137,15 @@ class User
     /**
      * @return bool
      */
-    public function isBan(): bool
+    public function isBan(): int
     {
         return $this->isBan;
     }
 
     /**
-     * @param bool $isBan
+     * @param int $isBan
      */
-    public function setIsBan(bool $isBan): void
+    public function setIsBan(int $isBan): void
     {
         $this->isBan = $isBan;
     }
