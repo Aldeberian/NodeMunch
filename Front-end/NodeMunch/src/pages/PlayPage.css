@@ -1,0 +1,25 @@
+* {
+    margin: 0px;
+}
+
+#playPage {
+    height: 100%;
+    width: 100%;
+}
+
+#playingZone {
+    background-color: aqua;
+    width : 66%;
+    left: 16.5%;
+    top: 15%;
+    height: 70%;
+    position: absolute;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#playerNames {
+    margin: 20px;
+}
