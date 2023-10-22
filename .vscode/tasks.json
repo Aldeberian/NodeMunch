@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"path": "Front-end/NodeMunch",
+			"problemMatcher": [],
+			"label": "npm: dev - Front-end/NodeMunch",
+			"detail": "vite",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
+		}
+	]
+}
