@@ -80,14 +80,14 @@ export default class Graph {
     }
   }
 
-  removeNode(nodeId: number) {
+  removeNode(nodeId: string) {
     this.nodes = this.nodes.filter((item) => item.id != nodeId);
     this.links = this.links.filter(
       (item) => item.id1 != nodeId && item.id2 != nodeId
     );
   }
 
-  removeLink(linkId1 : number, linkId2 : number) {
+  removeLink(linkId1 : string, linkId2 : string) {
     this.links = this.links.filter(
       (item) => item.id1 != linkId1 || item.id2 != linkId2
     );
@@ -96,8 +96,8 @@ export default class Graph {
     );
   }
 
-  findConnections(nodeId: number): number[] {
-    let connections: Array<number> = [];
+  findConnections(nodeId: string): string[] {
+    let connections: Array<string> = [];
     this.links.forEach((link) => {
       if (link.id1 == nodeId) {
         connections.push(link.id2);
@@ -106,5 +106,9 @@ export default class Graph {
       }
     });
     return connections;
+  }
+
+  findNodeById(nodeId: string) {
+    return this.nodes.find((item) => item.id == nodeId);
   }
 }

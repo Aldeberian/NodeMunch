@@ -1,9 +1,9 @@
 //Takes two Ids of node
 export default class Link {
-  id1: number;
-  id2: number;
+  id1: string;
+  id2: string;
 
-  constructor(id1: number, id2: number) {
+  constructor(id1: string, id2: string) {
     this.id1 = id1;
     this.id2 = id2;
   }
