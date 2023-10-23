@@ -18,12 +18,12 @@ export function loadingDefault(graph: Graph) {
 ];
 
 let autoTabLink: Array<Link> = [
-    new Link("1", "2"),
-    new Link("1", "3"),
-    new Link("2", "3"),
-    new Link("4", "5"),
-    new Link("5", "6"),
-    new Link("6", "7"),
+    new Link("1l", "1", "2"),
+    new Link("2l", "1", "3"),
+    new Link("3l", "2", "3"),
+    new Link("4l", "4", "5"),
+    new Link("5l", "5", "6"),
+    new Link("6l", "6", "7"),
     // Ajoutez d'autres liens pour connecter les nœuds
 ];
 

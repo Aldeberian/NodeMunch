@@ -12,18 +12,25 @@ const randColor = () =>  {
     return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
 }
 
-const test = (id: string, graph : Graph) => {
-  console.log("on part de " + id);
-
+const nodeClicked = (id: string, graph : Graph) => {
   let idToDelete : string[] = graph.findConnections(id);
 
   idToDelete.push(id);
 
   idToDelete.forEach((id) => {
-    console.log(id);
     const element = document.getElementById(id);
     element?.remove();
   });
+
+  idToDelete.forEach((id) => {
+    let linkToDelete : string[] = graph.findLinksToNode(id);
+
+    linkToDelete.forEach((link) => {
+      console.log("link : id1 : " + link)
+      const element = document.getElementById(link);
+      element?.remove();
+    });
+  })
 }
 
 function drawNode(nodes: Array<Node>, graph : Graph) {
@@ -36,8 +43,8 @@ function drawNode(nodes: Array<Node>, graph : Graph) {
         stroke="black"
         strokeWidth={0.5}
         fill="red"
-        id={node.id.toString()}
-        onClick={() => test(node.id.toString(), graph)}
+        id={node.id}
+        onClick={() => nodeClicked(node.id, graph)}
       />
   ));
 }
@@ -52,6 +59,7 @@ function drawLink(links: Array<Link>, graph: Graph) {
         y2={graph.findNodeById(link.id2)?.posY}
         stroke={randColor()}
         strokeWidth={0.5}
+        id={link.id}
       />
   ));
 }

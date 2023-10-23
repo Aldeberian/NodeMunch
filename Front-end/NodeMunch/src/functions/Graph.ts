@@ -108,6 +108,18 @@ export default class Graph {
     return connections;
   }
 
+  findLinksToNode(nodeId : string) : string[] {
+    let linksToNode : string[] = [];
+    this.links.forEach((link) => {
+      if (link.id1 == nodeId) {
+        linksToNode.push(link.id);
+      } else if (link.id2 == nodeId) {
+        linksToNode.push(link.id);
+      }
+    });
+    return linksToNode;
+  } 
+
   findNodeById(nodeId: string) {
     return this.nodes.find((item) => item.id == nodeId);
   }
