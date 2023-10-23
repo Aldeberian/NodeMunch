@@ -70,16 +70,49 @@ class GatewayUser
     /**
      * @param int $idGraph The id of the graph that is going to be saved.
      */
-    public function saveGraph(int $idGraph) : void {
-
+    public function saveGraph(int $idGraph, int $idUser) : void {
+        $query = "INSERT INTO Savedgraph VALUES (:idUser, :idGraph)";
+        $this->connection->executeQuery($query, array(
+            ':idUser'=>array($idUser, \PDO::PARAM_INT),
+            ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
     }
+
+
+ /**
+     * @param int $idGraph The id of the graph that will be unsaved.
+     */
+    public function unsaveGraph(int $idGraph, int $idUser) : void {
+        $query = "DELETE FROM Savedgraph WHERE idUser = :idUser AND idGraph = :idGraph";
+        $this->connection->executeQuery($query, array(
+            ':idUser'=>array($idUser, \PDO::PARAM_INT),
+            ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
+    }
+
+
 
     /**
      * @param int $idGraph The id of the graph that will be liked by the user.
      */
-    public function likeGraph(int $idGraph) : void {
-
+    public function likeGraph(int $idGraph, int $idUser) : void {
+        $query = "INSERT INTO Likedgraph VALUES (:idUser, :idGraph)";
+        $this->connection->executeQuery($query, array(
+            ':idUser'=>array($idUser, \PDO::PARAM_INT),
+            ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
     }
+
+
+
+        /**
+     * @param int $idGraph The id of the graph that will be unliked by a certain user.
+     */
+    public function unlikeGraph(int $idGraph, int $idUser) : void {
+        $query = "DELETE FROM Likedgraph WHERE idUser = :idUser AND idGraph = :idGraph";
+        $this->connection->executeQuery($query, array(
+            ':idUser'=>array($idUser, \PDO::PARAM_INT),
+            ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
+    }
+
+
 
     /**
      * !Really important method!
