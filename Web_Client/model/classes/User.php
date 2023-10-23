@@ -12,21 +12,22 @@ class User
 
     private string $email;
 
-    private int $myGraphs;
+    private array $myGraphs;
 
-    private int $favGraphs;
+    private array $favGraphs;
 
-    private int $isBan;
+    private bool $isBan;
 
     /**
      * @param int $id
      * @param string $pseudo
      * @param string $password
      * @param string $email
-     * @param int $myGraphs
-     * @param int $favGraphs
+     * @param array $myGraphs
+     * @param array $favGraphs
+     * @param bool $isBan
      */
-    public function __construct(int $id, string $pseudo, string $password, string $email, int $myGraphs, int $favGraphs)
+    public function __construct(int $id, string $pseudo, string $password, string $email, array $myGraphs, array $favGraphs, bool $isBan)
     {
         $this->id = $id;
         $this->pseudo = $pseudo;
@@ -34,7 +35,7 @@ class User
         $this->email = $email;
         $this->myGraphs = $myGraphs;
         $this->favGraphs = $favGraphs;
-        $this->isBan = 0; //have modified to an int because in the database it's preferred to use int to stock the state of isBan
+        $this->isBan = $isBan; //have modified to an int because in the database it's preferred to use int to stock the state of isBan
     }
 
 

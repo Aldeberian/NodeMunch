@@ -5,19 +5,22 @@ namespace model\classes;
 class Node
 {
     private int $id;
-    private double $x;
-    private double $y;
+    private double $posX;
+    private double $posY;
+    private array $neighbours;
 
     /**
      * @param int $id
-     * @param float $x
-     * @param float $y
+     * @param float $posX
+     * @param float $posY
+     * @param array $neighbours
      */
-    public function __construct(int $id, float $x, float $y)
+    public function __construct(int $id, float $posX, float $posY, array $neighbours)
     {
         $this->id = $id;
-        $this->x = $x;
-        $this->y = $y;
+        $this->posX = $posX;
+        $this->posY = $posY;
+        $this->neighbours = $neighbours;
     }
 
     /**
@@ -39,36 +42,56 @@ class Node
     /**
      * @return float
      */
-    public function getX(): float
+    public function getPosX(): float
     {
-        return $this->x;
+        return $this->posX;
     }
 
     /**
-     * @param float $x
+     * @param float $posX
      */
-    public function setX(float $x): void
+    public function setPosX(float $posX): void
     {
-        $this->x = $x;
+        $this->posX = $posX;
     }
 
     /**
      * @return float
      */
-    public function getY(): float
+    public function getPosY(): float
     {
-        return $this->y;
+        return $this->posY;
     }
 
     /**
-     * @param float $y
+     * @param float $posY
      */
-    public function setY(float $y): void
+    public function setPosY(float $posY): void
     {
-        $this->y = $y;
+        $this->posY = $posY;
     }
 
+    /**
+     * @return array
+     */
+    public function getNeighbours(): array
+    {
+        return $this->neighbours;
+    }
 
+    /**
+     * @param array $neighbours
+     */
+    public function setNeighbours(array $neighbours): void
+    {
+        $this->neighbours = $neighbours;
+    }
 
+    public function __toString(): string { 
+        return  "ID : ".$strval($this->getId())."<br>".
+                "Coordinates : (".strval($this->getPosX()).", ".
+                strval($this->getPictId()).").<br>".
+                "Neighbours : ".implode(", ",$this->getNeighbours())."<br>";
+    }
 
 }
