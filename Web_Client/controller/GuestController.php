@@ -34,28 +34,25 @@ class GuestController
             //on récupère la requête GET ou POST
             $action = $_REQUEST['action'] ?? null;
             switch ($action) {
+
                 //récupère les données du graphe et après faudrait les retourner au JavaScript qui s'occupera de les afficher
                 case 'getGraph':
-                    try {
-                        if (!isset($_REQUEST['graphId'])) {
-                            throw new InvalidArgumentException("Le champ 'userId' n'est pas renseigné.");
-                        }
-                        $this->getGraph($_REQUEST['graphId']);
-                    } catch (InvalidArgumentException $e) {
-                        echo "Erreur : " . $e->getMessage();
+                    if (!isset($_REQUEST['graphId'])) {
+                        throw new InvalidArgumentException("Le champ 'userId' n'est pas renseigné.");
                     }
+
+                    $this->getGraph($_REQUEST['graphId']);
+
                     break;
 
                 //envois les données du profil d'un utilisateur à la vue userProfileView
                 case 'seeProfile':
-                    try {
-                        if (!isset($_REQUEST['userId'])) {
-                            throw new InvalidArgumentException("Le champ 'userId' n'est pas renseigné.");
-                        }
-                        $this->displayProfile($_REQUEST['userId']);
-                    } catch (InvalidArgumentException $e) {
-                        echo "Erreur : " . $e->getMessage();
+                    if (!isset($_REQUEST['userId'])) {
+                        throw new InvalidArgumentException("Le champ 'userId' n'est pas renseigné.");
                     }
+
+                    $this->displayProfile($_REQUEST['userId']);
+
                     break;
 
                 case null:
@@ -63,12 +60,27 @@ class GuestController
 
                 default:
                     $errTab[] = "Erreur d'appel php";
-                    echo $twig->render('../views/userProfileView.html', ['../views/errorView.html' => $errTab]);
+                    //Render la vue d'erreur avec le message d'erreur
+
                     break;
             }
 
         } catch (PDOException $e) {
             $errTab[] = "Erreur inattendue !";
+        } catch (Exception $e) {
+            echo "erreur";
         }
+    }
+
+    public function getGraph() {
+        $model = new Model();
+
+        $data = $model->getAllDataFromGateways();
+    }
+
+    public function displayProfile(int $userId) {
+        $model = new Model();
+
+        $data = $model->getAllDataFromGateways();
     }
 }
