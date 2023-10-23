@@ -6,7 +6,9 @@ function MenuPage() {
         <div className = "menu">
             <img src="Logo.png" alt="Logo" className="logo" />
 
-            <Bouton/>
+            <div id="Buttons">
+                <Bouton/>
+            </div>
         </div>
     )
 }
