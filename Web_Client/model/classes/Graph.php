@@ -7,19 +7,20 @@ class Graph
 
     private int $id;
     private string $name;
-    private string $creator;
-    private int $pictId;
+    private User $creator;
+    private Thumbnail $thumbnail;
 
     /**
      * @param int $id ID of the Graph
      * @param string|null $name Name of the Graph (can be null)
      * @param int|null $pictId ID of the image preview (can be null)
      */
-    public function __construct(int $id, ?string $name, ?int $pictId)
+    public function __construct(int $id, ?string $name, ?User $creator, ?Thumbnail $thumbnail)
     {
         $this->setId($id);
-        ($name == null) ? $this->name = $id : $this->name = $name; // If there's no name in parameters, the name of the graph is set to the id
-        $this->pictId = $pictId;
+        ($name == null) ? $this->setName($id) : $this->setName($name); // If there's no name in parameters, the name of the graph is set to the id
+        $this->setCreator($creator);
+        $this->setThumbnail($thumbnail);
     }
 
     /**
@@ -71,25 +72,25 @@ class Graph
     }
 
     /**
-     * @return int
+     * @return Thumbnail
      */
-    public function getPictId(): int
+    public function getThumbnail(): Thumbnail
     {
-        return $this->pictId;
+        return $this->thumbnail;
     }
 
     /**
-     * @param int $pictId
+     * @param Thumbnail $thumbnail
      */
-    public function setPictId(int $pictId): void
+    public function setThumbnail(Thumbnail $thumbnail): void
     {
-        $this->pictId = $pictId;
+        $this->thumbnail = $thumbnail;
     }
 
     public function __toString(): string { 
         return  "ID : ".strval($this->getId())."<br>".
                 "Name : ".$this->getName()."<br>".
-                "Creator : ".$this->getCreator()->getName()."<br>".
-                "Image preview ID : ".strval($this->getPictId())."<br>";
+                "Creator : ".$this->getCreator()->getPseudo()."<br>".
+                "Image preview ID : ".strval($this->getThumbnail()->getId())."<br>";
     }
 }

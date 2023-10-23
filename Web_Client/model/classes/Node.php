@@ -5,8 +5,8 @@ namespace model\classes;
 class Node
 {
     private int $id;
-    private double $posX;
-    private double $posY;
+    private float $posX;
+    private float $posY;
     private array $neighbours;
 
     /**
@@ -17,10 +17,10 @@ class Node
      */
     public function __construct(int $id, float $posX, float $posY, array $neighbours)
     {
-        $this->id = $id;
-        $this->posX = $posX;
-        $this->posY = $posY;
-        $this->neighbours = $neighbours;
+        $this->setId($id);
+        $this->setPosX($posX);
+        $this->setPosY($posY);
+        $this->setNeighbours($neighbours);
     }
 
     /**
@@ -88,9 +88,9 @@ class Node
     }
 
     public function __toString(): string { 
-        return  "ID : ".$strval($this->getId())."<br>".
+        return  "ID : ".strval($this->getId())."<br>".
                 "Coordinates : (".strval($this->getPosX()).", ".
-                strval($this->getPictId()).").<br>".
+                strval($this->getPosY()).").<br>".
                 "Neighbours : ".implode(", ",$this->getNeighbours())."<br>";
     }
 

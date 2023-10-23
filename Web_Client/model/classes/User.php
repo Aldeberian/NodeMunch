@@ -16,7 +16,9 @@ class User
 
     private array $favGraphs;
 
-    private bool $isBan;
+    private bool $ban;
+
+    private array $friends;
 
     /**
      * @param int $id
@@ -25,17 +27,19 @@ class User
      * @param string $email
      * @param array $myGraphs
      * @param array $favGraphs
-     * @param bool $isBan
+     * @param bool $ban
+     * @param array $friends
      */
-    public function __construct(int $id, string $pseudo, string $password, string $email, array $myGraphs, array $favGraphs, bool $isBan)
+    public function __construct(int $id, string $pseudo, string $password, string $email, array $myGraphs, array $favGraphs, int $isBan, array $friends)
     {
-        $this->id = $id;
-        $this->pseudo = $pseudo;
-        $this->password = $password;
-        $this->email = $email;
-        $this->myGraphs = $myGraphs;
-        $this->favGraphs = $favGraphs;
-        $this->isBan = $isBan; //have modified to an int because in the database it's preferred to use int to stock the state of isBan
+        $this->setId($id);
+        $this->setPseudo($pseudo);
+        $this->setPassword($password);
+        $this->setEmail($email);
+        $this->setMyGraphs($myGraphs);
+        $this->setFavGraphs($favGraphs);
+        $this->setBanInt($isBan); //have modified to an int because in the database it's preferred to use int to stock the state of isBan
+        $this->setFriends($friends);
     }
 
 
@@ -104,33 +108,33 @@ class User
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getMyGraphs(): int
+    public function getMyGraphs(): array
     {
         return $this->myGraphs;
     }
 
     /**
-     * @param int $myGraphs
+     * @param array $myGraphs
      */
-    public function setMyGraphs(int $myGraphs): void
+    public function setMyGraphs(array $myGraphs): void
     {
         $this->myGraphs = $myGraphs;
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getFavGraphs(): int
+    public function getFavGraphs(): array
     {
         return $this->favGraphs;
     }
 
     /**
-     * @param int $favGraphs
+     * @param array $favGraphs
      */
-    public function setFavGraphs(int $favGraphs): void
+    public function setFavGraphs(array $favGraphs): void
     {
         $this->favGraphs = $favGraphs;
     }
@@ -138,17 +142,52 @@ class User
     /**
      * @return bool
      */
-    public function isBan(): int
+    public function isBan(): bool
     {
-        return $this->isBan;
+        return $this->ban;
     }
 
     /**
-     * @param int $isBan
+     * @param int $ban
      */
-    public function setIsBan(int $isBan): void
+    public function setBanInt(int $ban): void
+    {
+        if($ban == 0){
+            $ban = false;
+        }else{
+            $ban = true;
+        }
+    }
+
+    /**
+     * @param bool $ban
+     */
+    public function setBan(bool $isBan): void
     {
         $this->isBan = $isBan;
     }
 
+    /**
+     * @return array
+     */
+    public function getFriends(): array
+    {
+        return $this->friends;
+    }
+
+    /**
+     * @param array $friends
+     */
+    public function setFriends(array $friends): void
+    {
+        $this->friends = $friends;
+    }
+
+    public function __toString(): string
+    {
+        return "ID : ".strval($this->getId())."<br>".
+               "User : ".$this->getPseudo()."<br>".
+               "E-Mail : ".$this->getEmail()."<br>".
+               "Banned : ".strval($this->isBan())."<br>";
+    }
 }
