@@ -14,3 +14,5 @@ $login = 'babrunet';
 
 //His password
 $passwd   = 'kalou86';
+
+?>
