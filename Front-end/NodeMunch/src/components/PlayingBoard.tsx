@@ -1,7 +1,7 @@
 import Graph from "../functions/Graph";
 import Node from "../functions/Node";
 import Link from "../functions/Link";
-import { useId } from "react";
+import { MouseEventHandler, useId } from "react";
 import "./PlayingBoard.css";
 
 interface GraphProps {
@@ -12,7 +12,21 @@ const randColor = () =>  {
     return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
 }
 
-function drawNode(nodes: Array<Node>) {
+const test = (id: string, graph : Graph) => {
+  console.log("on part de " + id);
+
+  let idToDelete : string[] = graph.findConnections(id);
+
+  idToDelete.push(id);
+
+  idToDelete.forEach((id) => {
+    console.log(id);
+    const element = document.getElementById(id);
+    element?.remove();
+  });
+}
+
+function drawNode(nodes: Array<Node>, graph : Graph) {
   return nodes.map((node, index) => (
       <circle
         key={index}
@@ -22,14 +36,16 @@ function drawNode(nodes: Array<Node>) {
         stroke="black"
         strokeWidth={0.5}
         fill="red"
-        id={node.id}
+        id={node.id.toString()}
+        onClick={() => test(node.id.toString(), graph)}
       />
   ));
 }
 
 function drawLink(links: Array<Link>, graph: Graph) {
-  return links.map((link) => (
+  return links.map((link, index) => (
       <line
+        key={index}
         x1={graph.findNodeById(link.id1)?.posX}
         y1={graph.findNodeById(link.id1)?.posY}
         x2={graph.findNodeById(link.id2)?.posX}
@@ -45,7 +61,7 @@ export default function PlayingBoard({ graph }: GraphProps) {
     <div id="playingBoard">
         <svg viewBox="0 0 100 100">
             {drawLink(graph.links, graph)}
-            {drawNode(graph.nodes)}
+            {drawNode(graph.nodes, graph)}
         </svg>
     </div>
   );
