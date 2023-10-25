@@ -32,5 +32,6 @@ class Validation{
         }
     }
 
-    //require_once('errors.php'); don't know where to put this 
+    
+   
 }
