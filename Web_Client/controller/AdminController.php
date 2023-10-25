@@ -11,7 +11,7 @@ class AdminController
 
     public function __construct() {
 
-        global $twig;
+        //global $twig;
         session_start();
 
         $errorView = [];
