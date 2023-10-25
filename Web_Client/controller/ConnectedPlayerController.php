@@ -36,12 +36,17 @@ class ConnectedPlayerController
 
                     break;
                 
-                case 'deleteGraph':
+                case 'deleteMyGraph':
                     if (!isset($_REQUEST['graphId'])) {
                         throw new InvalidArgumentException("Le champ 'graphId' n'est pas renseigné.");
                     }
                     else{
-                        $this->deleteGraph($_REQUEST['graphId']);
+                        if(!isset($_SESSION['userId'])){
+                            throw new InvalidArgumentException("Le champ 'userId' n'est pas renseigné.");
+                        }
+                        else{
+                            $this->deleteMyGraph($_SESSION['userId'],$_REQUEST['graphId']);
+                        }
                     }
 
                     break;
@@ -81,12 +86,19 @@ class ConnectedPlayerController
 
     public function editGraph($graphId)
     {
+        $graph = Model::getGraphById($graphId);
         pass;
     }
 
-    public function deleteGraph($graphId)
+    public function deleteMyGraph($userId,$graphId)
     {
-        Model::deleteGraphById($graphId);
+        $graph = Model::getGraphById($graphId);
+        if($graph->creator==$userId){
+            Model::deleteGraphById($graphId);
+        }
+        else{
+            $errTab[] = "You are not the author of the graph !";
+        }
     }
 
     public function createGraph()
