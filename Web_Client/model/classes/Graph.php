@@ -116,6 +116,6 @@ class Graph
                 "Name : ".$this->getName()."<br>".
                 "Creator : ".$this->getCreator()->getPseudo()."<br>".
                 "Image preview ID : ".strval($this->getThumbnail()->getId())."<br>".
-                "Nodes : ".implode(nTab,", ")."<br>";
+                "Nodes : ".implode($nTab,", ")."<br>";
     }
 }

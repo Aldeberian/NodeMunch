@@ -25,7 +25,7 @@ class Validation{
             $tabError[] = 'emptyMailError';
             $mail = '';
         }
-        if (!filter_var($mail, FILTER_VALIDATE_MAIL))
+        if (!filter_var($mail, FILTER_VALIDATE_EMAIL))
         {
             $tabError[] = 'badMailError';
             $mail = '';
