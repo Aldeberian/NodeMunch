@@ -20,6 +20,7 @@ function CreditsPage(){
             <li>Baptiste BRUNET</li>
             <li>Nicolas BLONDEAU</li>
           </ul>
+          <p>Sur l'idée de Monsieur Foucault.</p>
           <Button url="/" color="green">Ok !</Button>
         </div>
       </div>
