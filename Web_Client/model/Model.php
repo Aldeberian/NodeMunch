@@ -82,13 +82,14 @@ class Model
 
         $data = $gatewayUser->getDataUser();
 
+        var_dump($data);
+
         return $data;
     }
 
 
 }
 
-
-/*model::getAllDataFromGateways();
-model::getDataGraphsFromGateways();
-model::getDataUsersFromGateways();*/
+//model::getAllDataFromGateways();
+//model::getDataGraphsFromGateways();
+//model::getDataUsersFromGateways();
