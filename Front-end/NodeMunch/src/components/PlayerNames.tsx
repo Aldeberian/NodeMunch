@@ -16,7 +16,7 @@ interface PlayerNamesProps {
  */
 const PlayerNames = ({ turnToPlay, playerNames }: PlayerNamesProps) => {
   return (
-    <div>
+    <div className="playerNames">
       {playerNames.map((playerName, index) => (
         <div key={index} className={turnToPlay === playerName ? "Active" : "Inactive"}>
           <p>{playerName}</p>

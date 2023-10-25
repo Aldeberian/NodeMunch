@@ -26,7 +26,7 @@ function Play() {
       <div id="playingZone">
         {/*Depending on the state of the game, displays the edit component or the play component
         When the play component is displayed, the button doesn't exist on the page anymore*/}
-        {playStatus ? null : <LaunchGameButton handleStatusChange={handleStatusChange} /> }
+        <div id="playButton">{playStatus ? null : <LaunchGameButton handleStatusChange={handleStatusChange}/>}</div>
         {playStatus ? <PlayingBoard graph={grap}/> : <EditBoard />}
       </div>
     </div>
