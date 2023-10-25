@@ -16,13 +16,14 @@
   -webkit-animation-timing-function: ease-in-out;
           animation-timing-function: ease-in-out;
   font-family: "munstar", cursive;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: black;
-  top: 25%;
-  animation: titleAnimation 2s ease-in-out infinite;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: white;
+  top: 20%;
+  animation: titleAnimation 3s ease-in-out infinite;
+  animation-delay: 0s;
 }
 
-.t1 {
+/* .t1 {
   animation-delay: 0.2s;
 }
 
@@ -36,7 +37,7 @@
 
 .t4 {
   animation-delay: -0.1s;
-}
+} */
 
 @keyframes titleAnimation {
   40%, 50% {

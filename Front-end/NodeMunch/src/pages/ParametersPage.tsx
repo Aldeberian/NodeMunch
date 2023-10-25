@@ -11,7 +11,7 @@ function ParametersPage(){
       <WavyBackground/>
       <div className="container">
         <div className="elements">
-          <Button url="" color="orange">This is a button</Button>
+          <Button url="" color="orange">On</Button>
           <Button url="" color="orange">This is another button</Button>
           <Button url="" color="#3498db">Maybe another button</Button>
           <table>
