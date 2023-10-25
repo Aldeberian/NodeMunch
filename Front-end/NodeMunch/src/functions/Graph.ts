@@ -37,7 +37,7 @@ export default class Graph {
   addNode(node: NodeP) {
     if (this.nodes.find((item) => item.id == node.id)) {
       console.log(
-        "ERROR : This id already exists in the graph. The node : " +
+        "ERROR : This is already exists in the graph. The node : " +
           node.printCoordinates() +
           " was not added"
       );

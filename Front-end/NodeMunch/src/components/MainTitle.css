@@ -1,0 +1,49 @@
+@font-face {
+  font-family: munstar;
+  src: url(../src/assets/fonts/Munstar-Regular.ttf);
+}
+
+.hello {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10vw;
+  -webkit-animation-name: wave;
+          animation-name: wave;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  font-family: "munstar", cursive;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: white;
+  top: 20%;
+  animation: titleAnimation 3s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+/* .t1 {
+  animation-delay: 0.2s;
+}
+
+.t2 {
+  animation-delay: 0.1s;
+}
+
+.t3 {
+  animation-delay: 0s;
+}
+
+.t4 {
+  animation-delay: -0.1s;
+} */
+
+@keyframes titleAnimation {
+  40%, 50% {
+    transform: translate(-50%, -55%) scale(1.05);
+  }
+  0%, 90%, 100% {
+    transform: translate(-50%, -45%) scale(0.95);
+  }
+}
