@@ -130,12 +130,23 @@ class GatewayUser
 
 
     public function addFriend(int $idUser1, int $idUser2)
-    {
-        $query = "INSERT INTO Friend VALUES (:id1, :id2)";
+    {   
+        #First, we have to test if the relation of friendship between the two users already exist in the database
+        $queryVerification = "SELECT * FROM Friend WHERE (idUser1 = :id1 AND idUser2 = :id2)
+                                                    OR (idUser1 = :id2 AND idUser2 = :id1)";
 
-        $this->connection->executeQuery($query, array(
+        $this->connection->executeQuery($queryVerification, array(
             ':id1'=> array($idUser1, \PDO::PARAM_INT),
             ':id2'=> array($idUser2, \PDO::PARAM_INT)));
+
+        if ($this->connection->getResults()==NULL) #if the relation between these two users doesn't exist
+        {
+            $query = "INSERT INTO Friend VALUES (:id1, :id2)";
+
+            $this->connection->executeQuery($query, array(
+                ':id1'=> array($idUser1, \PDO::PARAM_INT),
+                ':id2'=> array($idUser2, \PDO::PARAM_INT)));
+        }       
     }
 
 
@@ -147,7 +158,6 @@ class GatewayUser
     public function getDataUser() : array {
 
         $query = "SELECT * FROM User";
-
         $this->connection->executeQuery($query, array());
 
         return $this->connection->getResults();

@@ -30,7 +30,6 @@ public function executeQuery(string $query, array $parameters = []) : bool{
 
 public function getResults() : array {
  return $this->stmt->fetchall();
-
 }
 }
 
