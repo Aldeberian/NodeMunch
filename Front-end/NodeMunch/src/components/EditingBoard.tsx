@@ -16,6 +16,8 @@ export default function EditBoard() {
     const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
     const [idCustom, setId] = useState<string>("0");
+
+    const [graphContent, setGraphContent] = useState<JSX.Element | null>(null);
     
     const handleMouseMove = (e: React.MouseEvent) => {
         const editBoard = document.getElementById("editingBoard");
@@ -28,17 +30,23 @@ export default function EditBoard() {
 
     const boardClicked = (e: MouseEvent) => {
         // Call handleMouseMove to get the current mouse position
+        console.log(position.x, position.y);
         handleMouseMove(e);
-    
+        console.log(position.x, position.y);
+
         let newNode = new NodeP(idCustom, position.x, position.y);
     
         setId((Number(idCustom) + 1).toString());
     
         graph.addNode(newNode);
+        console.log(graph)
+
+        setGraphContent(drawGraph(graph, { eventOnClick: nodeClicked }));
     };
     
     return (
         <div id="editingBoard" onMouseMove={handleMouseMove} onClick={boardClicked}>
+            {graphContent}
         </div>
     )
 }
