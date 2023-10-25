@@ -21,8 +21,9 @@ class GatewayNode
     }
 
 
-
-
+    /**
+     * This function insert a node into the database 
+     */
     public function insertNodeIntoDatabase(int $id, int $posX, int $posY)
     {
         $query = "INSERT INTO Node VALUES(:id, :pX, :pY)";
@@ -30,45 +31,19 @@ class GatewayNode
         $this->connection->executeQuery($query, array(
             ':id'=> array($id, \PDO::PARAM_INT),
             ':pX'=> array($posX, \PDO::PARAM_INT),
-            ':pY'=> array($pY, \PDO::PARAM_INT)));
+            ':pY'=> array($posY, \PDO::PARAM_INT)));
     }
 
 
-    /**
-     * Insert a link in the database, it needs 2 nodes as parameters, the id is auto-generated and auto-incremented
-     * @param int $nodeA
-     * @param int $nodeB
-     */
-    public function insertEdgeIntoDatabase(int $nodeA, int $nodeB) 
+    public function insertNodeIntoCompoNode(int $idGraph, int $idNode)
     {
-        $query = "INSERT INTO Edge VALUES (:nodeA, :nodeB)";
+        $query = "INSERT INTO CompositionNode VALUES (:idG, :idN)";
 
-        try {
-
-            $this->connection->executeQuery($query, array(':nodeA' => array($nodeA, \PDO::PARAM_INT), ':nodeB' => array($nodeB, \PDO::PARAM_INT)));
-        }
-
-        catch (\PDOException $e) {
-
-            echo $e->getMessage();
-
-        }
-
-        echo 'insertion reussie';
+        $this->connection->executeQuery($query, array(
+            ':idG'=> array($idGraph, \PDO::PARAM_INT),
+            ':idN'=> array($idNode, \PDO::PARAM_INT)));
     }
 
-    /**
-     * !Really important method!
-     * Get all the links from the database as an array
-     * @return array
-     */
-    public function getDataLink() : array 
-    {
-        $query = "SELECT * FROM Edge";
 
-        $this->connection->executeQuery($query, array());
-
-        return $this->connection->getResults();
-    }
-
+   
 }
