@@ -34,7 +34,7 @@ class GatewayGraph
             ':idImage' => array($idImage, \PDO::PARAM_STR)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ class GatewayGraph
             ':id' => array($id, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ class GatewayGraph
         $this->connection->executeQuery($query, array(':id' => array($id, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -83,7 +83,7 @@ class GatewayGraph
         $this->connection->executeQuery($query);
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
         return $this->connection->getResults();
     }
