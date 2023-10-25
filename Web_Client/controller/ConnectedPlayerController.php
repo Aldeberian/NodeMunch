@@ -23,6 +23,9 @@ class ConnectedPlayerController
             //on récupère la requête GET ou POST
             $action = $_REQUEST['action'] ?? null;
             switch($action){
+                case null:
+                    break;
+
                 case 'editGraph':
                     if (!isset($_REQUEST['graphId'])) {
                         throw new InvalidArgumentException("Le champ 'graphId' n'est pas renseigné.");
@@ -42,6 +45,31 @@ class ConnectedPlayerController
                     }
 
                     break;
+                
+                case 'createGraph':
+                    $this->createGraph();
+                    break;
+                
+                case 'saveGraphInFav':
+                    if (!isset($_REQUEST['graphId'])) {
+                        throw new InvalidArgumentException("Le champ 'graphId' n'est pas renseigné.");
+                    }
+                    else{
+                        $this->saveGraphInFav($_REQUEST['graphId']);
+                    }
+                
+                case 'likeGraph':
+                    if (!isset($_REQUEST['graphId'])) {
+                        throw new InvalidArgumentException("Le champ 'graphId' n'est pas renseigné.");
+                    }
+                    else{
+                        $this->likeGraph($_REQUEST['graphId']);
+                    }
+                
+                default:
+                    $errorView = "Call error";
+                    //echo $twig->render('vuephp1.html', ['errorView' => $errorView]);
+                    break;
             }
         } catch (PDOException $e) {
             $errTab[] = "Erreur inattendue !";
@@ -58,7 +86,26 @@ class ConnectedPlayerController
 
     public function deleteGraph($graphId)
     {
+        Model::deleteGraphById($graphId);
+    }
+
+    public function createGraph()
+    {
         pass;
+    }
+
+    public function saveGraphInFav($graphId)
+    {
+        $user = &$_SESSION['userId'];
+        $user = Model::addFavGraph($user, $graphId);
+        Model::updateUser($user);
+    }
+
+    public function likeGraph($graphId)
+    {
+        $user = &$_SESSION['userId'];
+        $user = Model::addLikeGraph($user, $graphId);
+        Model::updateUser($user);
     }
 
 }
