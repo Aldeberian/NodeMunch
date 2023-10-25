@@ -10,15 +10,12 @@ const randColor = () =>  {
 }
 
 function drawNode(graph : Graph, {eventOnClick} : eventOnClickProps) {
-    const svg = document.getElementById("svgContainer");
-
-    if(!svg) return;
 
     return graph.nodes.map((node, index) => (
         <circle
           key={index}
-          cx={node.posX - svg.getBoundingClientRect().left}
-          cy={node.posY - svg.getBoundingClientRect().top}
+          cx={node.posX}
+          cy={node.posY}
           r={2}
           stroke="black"
           strokeWidth={0.5}
@@ -30,17 +27,14 @@ function drawNode(graph : Graph, {eventOnClick} : eventOnClickProps) {
   }
   
 function drawLink(graph: Graph) {
-    const svg = document.getElementById("svgContainer");
-
-    if(!svg) return;
 
     return graph.links.map((link, index) => (
         <line
           key={index}
-          x1={graph.findNodeById(link.id1)?.posX - svg.getBoundingClientRect().left}
-          y1={graph.findNodeById(link.id1)?.posY - svg.getBoundingClientRect().top}
-          x2={graph.findNodeById(link.id2)?.posX - svg.getBoundingClientRect().left}
-          y2={graph.findNodeById(link.id2)?.posY - svg.getBoundingClientRect().top}
+          x1={graph.findNodeById(link.id1)?.posX}
+          y1={graph.findNodeById(link.id1)?.posY}
+          x2={graph.findNodeById(link.id2)?.posX}
+          y2={graph.findNodeById(link.id2)?.posY}
           stroke={randColor()}
           strokeWidth={0.5}
           id={link.id}
@@ -50,7 +44,7 @@ function drawLink(graph: Graph) {
 
 export default function drawGraph(graph : Graph, {eventOnClick} : eventOnClickProps) {
     return (
-        <svg height="100%" width="100%" id="svgContainer">
+        <svg id="svgContainer">
             {drawLink(graph)}
             {drawNode(graph, { eventOnClick: eventOnClick })}
         </svg>

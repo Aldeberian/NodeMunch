@@ -1,5 +1,4 @@
 import './Button.css';
-import './ButtonEffect.css'
 import React from 'react';
 
 interface buttonProperties{   //Here are the properties of the button :
