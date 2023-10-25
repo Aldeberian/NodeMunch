@@ -30,9 +30,7 @@ const nodeClicked = (id: string, graph : Graph) => {
 export default function PlayingBoard({ graph }: GraphProps) {
   return (
     <div id="playingBoard">
-        <svg viewBox="0 0 100 100">
             {drawGraph(graph, { eventOnClick: nodeClicked })}
-        </svg>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import React, { useState, MouseEvent } from 'react';
 
 import './EditingBoard.css'
 
-let graph = new Graph("custom");
+let graph = new Graph("auto");
 
 const nodeClicked = () => {
     console.log("test")

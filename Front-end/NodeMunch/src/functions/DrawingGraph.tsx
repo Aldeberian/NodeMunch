@@ -44,7 +44,7 @@ function drawLink(graph: Graph) {
 
 export default function drawGraph(graph : Graph, {eventOnClick} : eventOnClickProps) {
     return (
-        <svg id="svgContainer">
+        <svg id="svgContainer" viewBox="0 0 100 100">
             {drawLink(graph)}
             {drawNode(graph, { eventOnClick: eventOnClick })}
         </svg>

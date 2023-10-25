@@ -7,7 +7,7 @@ export function loadingDefault(graph: Graph) {
   //2 - 100 les extrémités x de la div avant qu'une node sorte de la zone
   //2 - 49 en y
   let autoTabNode: Array<NodeP> = [
-    new NodeP("1", 306.234567, 117.123456),
+    new NodeP("1", 78.234567, 43.123456),
     new NodeP("2", 45.987654, 21.543210),
     new NodeP("3", 69.876543, 12.345678),
     new NodeP("4", 33.123456, 36.987654),
