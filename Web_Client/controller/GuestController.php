@@ -5,30 +5,24 @@ namespace controller;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
-require_once('../model/gateways/GatewayGraph.php');
-
 //En gros jsais pas comment installer twig sans les permissions de l'IUT
 //jsais pas c'est bizarre, faut que je code de chez moi les permissions de l'IUT sont infames
 require_once('/vendor/autoload.php');
 
 class GuestController
 {
-    private GatewayGraph $gwGraph;
-
-
     /**
      * When the Controller is created, he has to start a session
      */
     public function __construct()
     {
-        global $twig;
+        //global $twig;
         session_start();
         $errTab = [];
 
         //load de twig (normalement)
-        $loader = new Twig_Loader_Filesystem('templates');
-        $twig = new Twig_Environment($loader, array('cache'
-        => false));
+        //$loader = new Twig_Loader_Filesystem('templates');
+        //$twig = new Twig_Environment($loader, array('cache' => false));
 
         try {
             //on récupère la requête GET ou POST
@@ -40,8 +34,9 @@ class GuestController
                     if (!isset($_REQUEST['graphId'])) {
                         throw new InvalidArgumentException("Le champ 'userId' n'est pas renseigné.");
                     }
-
-                    $this->getGraph($_REQUEST['graphId']);
+                    else{
+                        $this->getGraph($_REQUEST['graphId']);
+                    }
 
                     break;
 
@@ -50,8 +45,9 @@ class GuestController
                     if (!isset($_REQUEST['userId'])) {
                         throw new InvalidArgumentException("Le champ 'userId' n'est pas renseigné.");
                     }
-
-                    $this->displayProfile($_REQUEST['userId']);
+                    else{
+                        $this->displayProfile($_REQUEST['userId']);
+                    }
 
                     break;
 
@@ -72,15 +68,21 @@ class GuestController
         }
     }
 
-    public function getGraph() {
-        $model = new Model();
-
-        $data = $model->getAllDataFromGateways();
+    public function getGraph(int $graphId) {
+        $data = Model::getDataGraphsFromGateways();
+        foreach($data as $graph){
+            if($graph->getId()==$graphId){
+                return $graph;
+            }
+        }
     }
 
     public function displayProfile(int $userId) {
-        $model = new Model();
-
-        $data = $model->getAllDataFromGateways();
+        $data = Model::getDataUsersFromGateways();
+        foreach($data as $user){
+            if($user->getId()==$userId){
+                return $user;
+            }
+        }
     }
 }

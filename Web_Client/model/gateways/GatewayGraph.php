@@ -27,10 +27,15 @@ class GatewayGraph
     public function insertGraphIntoDatabase(string $name, string $idImage) { //Should pass directly the object ?
         $query = "INSERT INTO Graph VALUES(:id, :nm, idImage)";
 
+        try {
         $this->connection->executeQuery($query, array(
             ':id' => array(NULL, \PDO::PARAM_INT),
             ':nm' => array($name, \PDO::PARAM_STR),
             ':idImage' => array($idImage, \PDO::PARAM_STR)));
+        }
+        catch (\PDOException $e) {
+            echo "Error: ".$e->getMessage();
+        }
     }
 
     /**
@@ -41,9 +46,14 @@ class GatewayGraph
     public function updateGraphName(int $id, string $name) { //
         $query = "UPDATE Graph SET 'name' = :nm WHERE id=:id";
 
+        try {
         $this->connection->executeQuery($query, array(
             ':nm' => array($name, \PDO::PARAM_STR),
             ':id' => array($id, \PDO::PARAM_INT)));
+        }
+        catch (\PDOException $e) {
+            echo "Error: ".$e->getMessage();
+        }
     }
 
     /**
@@ -53,7 +63,12 @@ class GatewayGraph
     public function deleteGraph(int $id) {
         $query = "DELETE FROM Graph WHERE id=:id";
 
+        try {
         $this->connection->executeQuery($query, array(':id' => array($id, \PDO::PARAM_INT)));
+        }
+        catch (\PDOException $e) {
+            echo "Error: ".$e->getMessage();
+        }
     }
 
     /**
@@ -64,7 +79,12 @@ class GatewayGraph
     public function getDataGraph() : array {
         $query = "SELECT * FROM Graph";
 
+        try {
         $this->connection->executeQuery($query);
+        }
+        catch (\PDOException $e) {
+            echo "Error: ".$e->getMessage();
+        }
         return $this->connection->getResults();
     }
 }
