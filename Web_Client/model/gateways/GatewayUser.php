@@ -23,8 +23,10 @@ class GatewayUser
 
     }
 
-    public function readUser(int $idUser) {
+    public function readUser(int $idUser) 
+    {
         $query = "SELECT * FROM User WHERE id = :id";
+
         $this->connection->executeQuery($query, array(
             ':id'=>array($idUser, \PDO::PARAM_int)));
         return $this->connection->getResults();
@@ -33,7 +35,8 @@ class GatewayUser
     /**
      * @param int $idUser The user to be ban by the admin.
      */
-    public function updateUserBan(int $idUser) {
+    public function updateUserBan(int $idUser) 
+    {
         $query = "UPDATE User SET isBan = 1 WHERE id = :idUser";
         try {
             $this->connection->executeQuery($query, array(
@@ -48,7 +51,8 @@ class GatewayUser
     /**
      * @param int $idUser The user to be unban by the admin.
      */
-    public function updateUserDeBan(int $idUser) {
+    public function updateUserDeBan(int $idUser) 
+    {
         $query = "UPDATE User SET isBan = 0 WHERE id = :idUser";
         try {
             $this->connection->executeQuery($query, array(
@@ -63,8 +67,10 @@ class GatewayUser
     /**
      * @param int $idUser The user to delete in the list.
      */
-    public function deleteUser(int $idUser) {
+    public function deleteUser(int $idUser) 
+    {
         $query = "DELETE FROM User WHERE id = :idUser";
+
         $this->connection->executeQuery($query, array(
             ':idUser'=>array($idUser, \PDO::PARAM_INT)));
     }
@@ -72,8 +78,10 @@ class GatewayUser
     /**
      * @param int $idGraph The id of the graph that is going to be saved.
      */
-    public function saveGraph(int $idGraph, int $idUser) : void {
+    public function saveGraph(int $idGraph, int $idUser) : void 
+    {
         $query = "INSERT INTO Savedgraph VALUES (:idUser, :idGraph)";
+
         $this->connection->executeQuery($query, array(
             ':idUser'=>array($idUser, \PDO::PARAM_INT),
             ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
@@ -83,8 +91,10 @@ class GatewayUser
  /**
      * @param int $idGraph The id of the graph that will be unsaved.
      */
-    public function unsaveGraph(int $idGraph, int $idUser) : void {
+    public function unsaveGraph(int $idGraph, int $idUser) : void 
+    {
         $query = "DELETE FROM Savedgraph WHERE idUser = :idUser AND idGraph = :idGraph";
+
         $this->connection->executeQuery($query, array(
             ':idUser'=>array($idUser, \PDO::PARAM_INT),
             ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
@@ -95,8 +105,10 @@ class GatewayUser
     /**
      * @param int $idGraph The id of the graph that will be liked by the user.
      */
-    public function likeGraph(int $idGraph, int $idUser) : void {
+    public function likeGraph(int $idGraph, int $idUser) : void 
+    {
         $query = "INSERT INTO Likedgraph VALUES (:idUser, :idGraph)";
+
         $this->connection->executeQuery($query, array(
             ':idUser'=>array($idUser, \PDO::PARAM_INT),
             ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
@@ -107,13 +119,24 @@ class GatewayUser
         /**
      * @param int $idGraph The id of the graph that will be unliked by a certain user.
      */
-    public function unlikeGraph(int $idGraph, int $idUser) : void {
+    public function unlikeGraph(int $idGraph, int $idUser) : void 
+    {
         $query = "DELETE FROM Likedgraph WHERE idUser = :idUser AND idGraph = :idGraph";
+
         $this->connection->executeQuery($query, array(
             ':idUser'=>array($idUser, \PDO::PARAM_INT),
             ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
     }
 
+
+    public function addFriend(int $idUser1, int $idUser2)
+    {
+        $query = "INSERT INTO Friend VALUES (:id1, :id2)";
+
+        $this->connection->executeQuery($query, array(
+            ':id1'=> array($idUser1, \PDO::PARAM_INT),
+            ':id2'=> array($idUser2, \PDO::PARAM_INT)));
+    }
 
 
     /**
