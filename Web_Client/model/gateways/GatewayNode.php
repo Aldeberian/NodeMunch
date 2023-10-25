@@ -28,10 +28,15 @@ class GatewayNode
     {
         $query = "INSERT INTO Node VALUES(:id, :pX, :pY)";
 
+        try {
         $this->connection->executeQuery($query, array(
             ':id'=> array($id, \PDO::PARAM_INT),
             ':pX'=> array($posX, \PDO::PARAM_INT),
             ':pY'=> array($posY, \PDO::PARAM_INT)));
+        }
+        catch (\PDOException $e) {
+            echo "Error: ".$e->getMessage();
+        }
     }
 
 
@@ -39,9 +44,14 @@ class GatewayNode
     {
         $query = "INSERT INTO CompositionNode VALUES (:idG, :idN)";
 
+        try {
         $this->connection->executeQuery($query, array(
             ':idG'=> array($idGraph, \PDO::PARAM_INT),
             ':idN'=> array($idNode, \PDO::PARAM_INT)));
+        }
+        catch (\PDOException $e) {
+            echo "Error: ".$e->getMessage();
+        }
     }
 
 

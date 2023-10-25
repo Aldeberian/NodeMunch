@@ -12,6 +12,7 @@ class AdminController
     public function __construct() {
 
         //global $twig;
+        global $views, $directory;
         session_start();
 
         $errorView = [];
@@ -24,9 +25,7 @@ class AdminController
 
                 case null :
 
-                    $this->reInit();
                     break;
-
 
                 case 'deleteAGraph' :
 
@@ -62,37 +61,41 @@ class AdminController
         }
     }
 
-    /**
-     * In the case
-     */
-    public function reInit() {
 
+    public function deleteAGraph($idGraph) {
 
         //global $twig;
 
-        $model = new Model();
-
-        $dataView = $model->getAllDataFromGateways();
-    }
-
-
-    public function deleteAGraph() {
-
-        //global $twig;
+        global $directory, $views;
 
         $model = new Model();
 
-        $data = $model->getAllDataFromGateways();
+        $data = $model->getDataGraphsFromGateways();
+
+        require $directory . $views['testCommunityGraphsAndDelButton'];
     }
 
     public function banUser() {
 
+        global $directory, $views;
+
+        $model = new Model();
+
+        $data = $model->getDataUsersFromGateways();
+
+        require $directory . $views['testBanUnbanUserButton'];
 
     }
 
     public function unBanUser() {
 
+        global $directory, $views;
 
+        $model = new Model();
+
+        $data = $model->getDataUsersFromGateways();
+
+        require $directory . $views['testBanUnbanUserButton'];
 
     }
 
