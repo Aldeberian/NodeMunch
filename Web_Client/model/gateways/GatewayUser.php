@@ -32,7 +32,7 @@ class GatewayUser
             ':id'=>array($idUser, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
         return $this->connection->getResults();
     }
@@ -48,7 +48,7 @@ class GatewayUser
                 ':idUser' => array($idUser, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo $e->getMessage();
+            throw new \Exception($e->getMessage());
         }
 
     }
@@ -64,7 +64,7 @@ class GatewayUser
                 ':idUser' => array($idUser, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
 
     }
@@ -80,7 +80,7 @@ class GatewayUser
             ':idUser'=>array($idUser, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -98,7 +98,7 @@ class GatewayUser
             ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -117,7 +117,7 @@ class GatewayUser
         }
 
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -136,7 +136,7 @@ class GatewayUser
             ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -155,7 +155,7 @@ class GatewayUser
             ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -181,7 +181,7 @@ class GatewayUser
             }       
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -198,7 +198,7 @@ class GatewayUser
             $this->connection->executeQuery($query, array());
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
 
         return $this->connection->getResults();

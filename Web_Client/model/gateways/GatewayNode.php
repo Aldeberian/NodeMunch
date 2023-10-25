@@ -35,7 +35,7 @@ class GatewayNode
             ':pY'=> array($posY, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ class GatewayNode
             ':idN'=> array($idNode, \PDO::PARAM_INT)));
         }
         catch (\PDOException $e) {
-            echo "Error: ".$e->getMessage();
+            throw new \Exception($e->getMessage());
         }
     }
 
