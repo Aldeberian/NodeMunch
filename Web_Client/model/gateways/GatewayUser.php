@@ -24,8 +24,10 @@ class GatewayUser
     }
 
     public function readUser(int $idUser) {
-
-
+        $query = "SELECT * FROM User WHERE id = :id";
+        $this->connection->executeQuery($query, array(
+            ':id'=>array($idUser, \PDO::PARAM_int)));
+        return $this->connection->getResults();
     }
 
     /**
