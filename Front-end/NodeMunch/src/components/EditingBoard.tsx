@@ -23,8 +23,8 @@ export default function EditBoard() {
         const editBoard = document.getElementById("editingBoard");
 
         if(!editBoard) return;
-        const x = e.clientX - editBoard.getBoundingClientRect().left;
-        const y = e.clientY - editBoard.getBoundingClientRect().top;
+        const x = e.clientX / 12.6;
+        const y = e.clientY / 12.6;
         setPosition({ x, y });
     };
 
