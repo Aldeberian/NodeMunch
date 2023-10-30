@@ -16,80 +16,48 @@ require ('gateways/GatewayUser.php');
 class Model
 {
     /**
-     * !Really important method!
-     *  Primary function that get all the data from different gateways and save it in $data then return it.
+     *  Gets a specific user by its id via the GatewayUser.
      */
-    public static function getAllDataFromGateways() : array{
+    public static function getUserWithId($userId) : array {
 
-        try {
+        $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
+        echo "Connection à la base dbbabrunet";
 
-            $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
-            echo "Connection à la base dbbabrunet";
-
-        } catch (\PDOException $e) {
-
-            echo "PDOException";
-        }
-
-        $gatewayGraph = new GatewayGraph($connection); //l'IDE râle car peut-être pas définie, raison : instanciation dans un try and catch, il aime pas
-        //$gatewayLink = new GatewayLink($connection);
-        $gatewayUser = new GatewayUser($connection);
-
-        $graphs = $gatewayGraph->getDataGraph(); //Pour chaque Gateway, on require son code et on use. Avec l'autoloading psr4 il y aura plus besoin.
-        $users = $gatewayUser->getDataUser();
-        //$links = $gatewayLink->getDataLink();
-
-        $data = ['Graph' => $graphs, /*'Link' => $links,*/'users' => $users];
-
-        return $data;
-
-    }
-
-    public static  function getDataGraphsFromGateways() : array {
-
-        try {
-
-            $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
-            echo "Connection à la base dbbabrunet";
-
-        } catch (\PDOException $e) {
-
-            echo "PDOException";
-        }
-
-        $gatewayGraph = new GatewayGraph($connection);
-
-        $data = $gatewayGraph->getDataGraph(); //Pour chaque Gateway, on require son code et on use. Avec l'autoloading psr4 il y aura plus besoin.
-
-        var_dump($data);
-
-        return $data;
-    }
-
-    public static function getDataUsersFromGateways() : array {
-
-        try {
-
-            $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
-            echo "Connection à la base dbbabrunet";
-
-        } catch (\PDOException $e) {
-
-            echo "PDOException";
-        }
 
         $gatewayUser = new GatewayUser($connection);
 
-        $data = $gatewayUser->getDataUser();
-
-        var_dump($data);
-
-        return $data;
+        return $gatewayUser->readUser($userId);
     }
 
+    /**
+     *  Sets 'isBan' field in '1' --> "yes" via the gateways User.
+     */
+    public static function banUser($userId) {
 
+        $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
+        echo "Connection à la base dbbabrunet";
+
+
+        $gatewayUser = new GatewayUser($connection);
+
+        $gatewayUser->updateUserBan($userId);
+    }
+
+    /**
+     *  Sets 'isBan' field in '0' --> "no" via the gateways User.
+     */
+    public static function unBanUser($userId) {
+
+        $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
+        echo "Connection à la base dbbabrunet";
+
+
+        $gatewayUser = new GatewayUser($connection);
+
+        $gatewayUser->updateUserDeBan($userId);
+    }
 }
 
-//model::getAllDataFromGateways();
-//model::getDataGraphsFromGateways();
-//model::getDataUsersFromGateways();
+//model::getUserWithId(2);
+//Model::banUser(2);
+//Model::unBanUser(2);

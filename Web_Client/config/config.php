@@ -15,9 +15,4 @@ $login = 'babrunet';
 //His password
 $passwd   = 'kalou86';
 
-
-//All the views in the project
-
-$views['testBanUnbanUserButton'] = 'views/testBanUnBanUserButton.php';
-$views['testCommunityGraphsAndDelButton'] = 'views/testCommunityGraphsAndDelButton.php';
 ?>

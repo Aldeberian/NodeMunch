@@ -6,5 +6,30 @@
 </head>
 <body>
 
+    {% if dataView is defined %}
+        <div align="center">
+            {%if dataErrorView is defined and dataErrorView|length >0 %}
+                {%for value in dataViewError %}
+                    <p>{{value}}</p>
+                {% endfor %}}
+            {% endif %}}
+
+            <h2> Ban Someone</h2>
+            <hr/>
+            <h4> Selected User to Ban : </h4>
+            {{dataView.user}}
+
+            <form method="post" name="theForm">
+
+                <input name="idUser" value="{{dataView.id}}" type="text" size="5"/>
+
+                <input type="submit" value="BAN"/>
+
+                <input type="hidden" name="action" value="banUser" />
+            </form>
+        </div>
+    {% else %}
+        <p> Error !! <br/>Unexpected use of the view !</p>
+    {% endif %}
 </body>
 </html>

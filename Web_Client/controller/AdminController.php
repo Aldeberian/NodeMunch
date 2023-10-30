@@ -11,11 +11,11 @@ class AdminController
 
     public function __construct() {
 
-        //global $twig;
-        global $views, $directory;
+        global $twig;
+
         session_start();
 
-        $errorView = [];
+        $dataErrorView = [];
 
         try {
 
@@ -25,77 +25,71 @@ class AdminController
 
                 case null :
 
+                    $this->initialPage();
+
                     break;
 
-                case 'deleteAGraph' :
+                /*case 'deleteAGraph' :
 
                     $this->deleteAGraph();
-                    break;
+                    break;*/
 
                 case 'banUser' :
 
-                    $this->banUser();
+                    $this->banUser($dataErrorView);
                     break;
 
-                case 'unBanUser' :
+/*                case 'unBanUser' :
 
                     $this->unBanUser();
-                    break;
+                    break;*/
 
                 default :
 
-                    $errorView = "Call error";
-                    //echo $twig->render('vuephp1.html', ['errorView' => $errorView]);
+                    $dataErrorView = "Call error";
+                    echo $twig->render('testBanUserButton.html', ['dataErrorView' => $dataErrorView]);
                     break;
             }
         }
 
-        catch (PDOException $exception) {
-
-            $errorView = "Unexpected data acces error";
-        }
-
         catch (Exception $exception) {
 
-            $errorView = "Unexpected error";
+            $dataErrorView = "Unexpected error";
+
+            echo $twig->render('errorView.html', ['dataErrorView' => $dataErrorView]);
         }
+    }
+
+    public function initialPage() {
+
+        global $twig;
+
+        $dataView = ['id' => 'give an id'];
+
+        echo $twig->render('testBanUserButton', ['dataview' => $dataView]);
     }
 
 
     public function deleteAGraph($idGraph) {
 
-        //global $twig;
-
-        global $directory, $views;
-
-        $model = new Model();
-
-        $data = $model->getDataGraphsFromGateways();
-
-        require $directory . $views['testCommunityGraphsAndDelButton'];
     }
 
-    public function banUser() {
+    public function banUser($dataErrorView) {
 
-        global $directory, $views;
+        global $twig;
+
+        $idUser = $_POST['idUser'];
 
         $model = new Model();
 
-        $data = $model->getDataUsersFromGateways();
+        $user = $model->getUserWithId($idUser);
 
-        require $directory . $views['testBanUnbanUserButton'];
+        $dataView = ['user' => $user, 'id' => ''];
 
+        echo $twig->render('testBanUserButton.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
 
     public function unBanUser() {
-
-        global $directory, $views;
-
-        $model = new Model();
-
-        $data = $model->getDataUsersFromGateways();
-
-        require $directory . $views['testBanUnbanUserButton'];
 
     }
 
