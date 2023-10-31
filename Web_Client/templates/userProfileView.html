@@ -13,27 +13,27 @@
 <!-- Check data existence -->
 {% if dataUser is defined %}
 
-<!-- Error handling -->
-{% if dVueEreur is defined and dVueEreur|length >0 %}
-<h2>ERREUR !!!!!</h2>
-{% for value in dVueEreur %}
-<p>{{value}}</p>
-{% endfor %}
-{% endif %}
+    <!-- Error handling -->
+    {% if dVueEreur is defined and dVueEreur|length >0 %}
+        <h2>ERREUR !!!!!</h2>
+        {% for value in dVueEreur %}
+            <p>{{value}}</p>
+        {% endfor %}
+    {% endif %}
 
-<h1>Profil de {{ username }}</h1>
-<h2>Nombre de parties : {{ nbGames }}</h2>
-<h2>Nombre de graphes : {{ nbGraph }}</h2>
-<h2> Graphes favoris : </h2>
+    <h1>Profil de {{ username }}</h1>
+    <h2>Nombre de parties : {{ nbGames }}</h2>
+    <h2>Nombre de graphes : {{ nbGraph }}</h2>
+    <h2> Graphes favoris : </h2>
 
-<table>
-    {% for graph in listGraph %}
-    <td>{{ graph }}</td>
-    {% endfor %}
-</table>
+    <table>
+        {% for graph in listGraph %}
+            <td>{{ graph }}</td>
+        {% endfor %}
+    </table>
 
 {% else %}
-<h1>Erreur dans le passage des données utilisateur entre le controlleur et la vue</h1>
+    <h1>Erreur dans le passage des données utilisateur entre le controlleur et la vue</h1>
 {% endif %}
 
 </body>

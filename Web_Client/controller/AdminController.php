@@ -25,7 +25,7 @@ class AdminController
 
                 case null :
 
-                    $this->initialPage();
+                    $this->initialPage($dataErrorView);
 
                     break;
 
@@ -39,15 +39,15 @@ class AdminController
                     $this->banUser($dataErrorView);
                     break;
 
-/*                case 'unBanUser' :
+                case 'unBanUser' :
 
-                    $this->unBanUser();
-                    break;*/
+                    $this->unBanUser($dataErrorView);
+                    break;
 
                 default :
 
                     $dataErrorView = "Call error";
-                    echo $twig->render('testBanUserButton.html', ['dataErrorView' => $dataErrorView]);
+                    echo $twig->render('banUnBanUsers.html', ['dataErrorView' => $dataErrorView]);
                     break;
             }
         }
@@ -56,42 +56,97 @@ class AdminController
 
             $dataErrorView = "Unexpected error";
 
+            echo $exception->getMessage();
+
             echo $twig->render('errorView.html', ['dataErrorView' => $dataErrorView]);
         }
     }
 
-    public function initialPage() {
+    public function initialPage($dataErrorView) {
 
         global $twig;
 
-        $dataView = ['id' => 'give an id'];
+        $model = new Model();
 
-        echo $twig->render('testBanUserButton', ['dataview' => $dataView]);
+        $users = $model->getAllUsers();
+
+        $dataView = ['users' => $users];
+
+        echo $twig->render('banUnBanUsers.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
 
 
     public function deleteAGraph($idGraph) {
 
+        global $twig;
+
     }
 
     public function banUser($dataErrorView) {
-
-        global $twig;
 
         $idUser = $_POST['idUser'];
 
         $model = new Model();
 
-        $user = $model->getUserWithId($idUser);
+        $model->banUser($idUser);
 
-        $dataView = ['user' => $user, 'id' => ''];
-
-        echo $twig->render('testBanUserButton.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
+        $this->initialPage($dataErrorView);
     }
 
-    public function unBanUser() {
+    public function unBanUser($dataErrorView) {
 
+        $idUser = $_POST['idUser'];
+
+        $model = new Model();
+
+        $model->unBanUser($idUser);
+
+        $this->initialPage($dataErrorView);
     }
 
 
 }
+
+
+//Ancienne fonction unBanUser qui était appelée depuis initialPage à la suite d'un submit du formulaire
+//elle unbannait le user puis l'affichait dans une view 'unBanUserStatement'
+//Pour plus de dynamisme je ne fais que bannir ou unbannir puis je raffiche le formulaire directement
+/*public function unBanUser($dataErrorView) {
+
+    global $twig;
+
+    $idUser = $_POST['idUser'];
+
+    $model = new Model();
+
+    $model->unBanUser($idUser);
+
+    $user = $model->getUserWithId($idUser);
+
+    $dataView = ['user' => $user];
+
+    echo $twig->render('unBanUserStatement.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
+}
+
+
+
+code de la vue 'unBanUserStatement' :
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UNBAN {{dataView.user[0].pseudo}}</title>
+</head>
+<body>
+
+<h2>The user unbanned :</h2>
+<ul>
+    <li>
+        <p>Pseudo :{{dataView.user[0].pseudo}}</p>
+        <p>Mail :{{dataView.user[0].email}}</p>
+    </li>
+</ul>
+
+</body>
+</html>
+*/

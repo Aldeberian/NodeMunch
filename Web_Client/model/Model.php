@@ -16,13 +16,23 @@ require ('gateways/GatewayUser.php');
 class Model
 {
     /**
+     *  Gets all users from the database via the GatewayUser.
+     */
+    public static function getAllUsers() : array {
+
+        $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
+
+        $gatewayUser = new GatewayUser($connection);
+
+        return $gatewayUser->getDataUser();
+    }
+
+    /**
      *  Gets a specific user by its id via the GatewayUser.
      */
     public static function getUserWithId($userId) : array {
 
         $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
-        echo "Connection à la base dbbabrunet";
-
 
         $gatewayUser = new GatewayUser($connection);
 
@@ -35,8 +45,6 @@ class Model
     public static function banUser($userId) {
 
         $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
-        echo "Connection à la base dbbabrunet";
-
 
         $gatewayUser = new GatewayUser($connection);
 
@@ -49,8 +57,6 @@ class Model
     public static function unBanUser($userId) {
 
         $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
-        echo "Connection à la base dbbabrunet";
-
 
         $gatewayUser = new GatewayUser($connection);
 
@@ -58,6 +64,8 @@ class Model
     }
 }
 
+
+//var_dump(Model::getAllUsers());
 //model::getUserWithId(2);
 //Model::banUser(2);
 //Model::unBanUser(2);

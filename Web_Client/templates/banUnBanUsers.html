@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ban/Unban Users</title>
+</head>
+<body>
+
+{% if dataView is defined %}
+<div align="center">
+    {% if dataErrorView is defined and dataErrorView|length > 0 %}
+        {% for value in dataViewError %}
+            <p>{{value}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <h2>Ban/Unban Users</h2>
+    <hr/>
+    <h4> Select Users to Ban/Unban: </h4>
+
+    {% for user in dataView.users %}
+        <form method="post">
+            {% if user.isBan == '0' %}
+                <input type="hidden" name="action" value="banUser">
+                <input type="hidden" name="idUser" value="{{user.id}}">
+                {{user.pseudo}}
+                <button type="submit">BAN</button>
+
+            {% elseif user.isBan == '1' %}
+                <input type="hidden" name="action" value="unBanUser">
+                <input type="hidden" name="idUser" value="{{user.id}}">
+                {{user.pseudo}}
+                <button type="submit">UNBAN</button>
+            {% endif %}
+        </form>
+        <br/><br/>
+    {% endfor %}
+</div>
+{% else %}
+<p> Error !! <br/>Unexpected use of the view !</p>
+{% endif %}
+
+</body>
+</html>
