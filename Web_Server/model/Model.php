@@ -24,7 +24,13 @@ class Model
 
         $gatewayUser = new GatewayUser($connection);
 
-        return $gatewayUser->getDataUser();
+        $res = $gatewayUser->getDataUser();
+
+        if($res[1] != "") {
+            throw new \Exception($res[1]);
+        } else {
+            return $res[0];
+        }
     }
 
     /**
@@ -36,7 +42,14 @@ class Model
 
         $gatewayUser = new GatewayUser($connection);
 
-        return $gatewayUser->readUser($userId);
+        $res = $gatewayUser->readUser($userId);
+
+        if($res[1] != "") {
+            throw new \Exception($res[1]);
+        } else {
+            return $res[0];
+        }
+
     }
 
     /**
@@ -48,7 +61,11 @@ class Model
 
         $gatewayUser = new GatewayUser($connection);
 
-        $gatewayUser->updateUserBan($userId);
+        $res = $gatewayUser->updateUserBan($userId);
+
+        if($res!=""){
+            throw new \Exception($res);
+        }
     }
 
     /**
@@ -60,7 +77,11 @@ class Model
 
         $gatewayUser = new GatewayUser($connection);
 
-        $gatewayUser->updateUserDeBan($userId);
+        $res = $gatewayUser->updateUserDeBan($userId);
+
+        if($res!=""){
+            throw new \Exception($res);
+        }
     }
 }
 
