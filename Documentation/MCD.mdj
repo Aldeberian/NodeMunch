@@ -4283,7 +4283,7 @@
 								"$ref": "AAAAAAGLTVzfjolYk5E="
 							},
 							"font": "Arial;13;0",
-							"left": 448,
+							"left": 464,
 							"top": 688,
 							"width": 60,
 							"height": 25,
@@ -4552,7 +4552,8 @@
 								"$ref": "AAAAAAGLTYWxo6PWPvc="
 							},
 							"name": "identifier",
-							"isStatic": true
+							"isStatic": true,
+							"type": ""
 						}
 					]
 				},
