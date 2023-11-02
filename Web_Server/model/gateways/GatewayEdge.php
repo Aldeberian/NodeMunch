@@ -7,10 +7,8 @@ use model\classes\Connection;
 /**
  * Class that manages the acces to links using SQL queries
  */
-class GatewayEdge
+class GatewayEdge extends Gateway
 {
-    public Connection $connection;
-
     /**
      * This gateway reach the link class in the database, it needs to get a connection (to the database) as parameter
      * @param Connection $connection
@@ -25,15 +23,14 @@ class GatewayEdge
      * Insert a link in the database, it needs 2 nodes as parameters, the id is auto-generated and auto-incremented
      * @param int $nodeA
      * @param int $nodeB
+     * @param int $id
+     * @return string
      */
     public function insertEdgeIntoDatabase(int $nodeA, int $nodeB, int $id) 
     {
         $query = "INSERT INTO Edge VALUES (:nodeA, :nodeB, :id)";      
 
-        $this->connection->executeQuery($query, array(
-            ':nodeA'=> array($nodeA, \PDO::PARAM_INT), 
-            ':nodeB'=> array($nodeB, \PDO::PARAM_INT),
-            ':id'=> array($id, \PDO::PARAM_INT)));
+        return $this->connectAndExecute($query, array(':nodeA'=> array($nodeA, \PDO::PARAM_INT), ':nodeB'=> array($nodeB, \PDO::PARAM_INT),':id'=> array($id, \PDO::PARAM_INT)));
 
         #echo 'insertion reussie'; #when we need to test to see if something happened
     }
@@ -47,9 +44,9 @@ class GatewayEdge
     {
         $query = "SELECT * FROM Edge";
 
-        $this->connection->executeQuery($query, array());
+        $err = $this->connectAndExecute($query, array());
 
-        return $this->connection->getResults();
+        return array($this->connection->getResults(),$err);
     }
 
 }

@@ -7,10 +7,8 @@ use model\classes\Connection;
 /**
  * Class that manages the acces to graphs using SQL queries
  */
-class GatewayGraph
+class GatewayGraph extends Gateway
 {
-    public Connection $connection;
-
     /**
      * @param Connection $connection This parameter is used to create the connection, used in other methods
      */
@@ -23,52 +21,33 @@ class GatewayGraph
     /**
      * This function inserts a graph into the database
      * @param string $name Name of the graph
+     * @param string $idImage ID of the image
+     * @return string
      */
     public function insertGraphIntoDatabase(string $name, string $idImage) { //Should pass directly the object ?
         $query = "INSERT INTO Graph VALUES(:id, :nm, idImage)";
-
-        try {
-        $this->connection->executeQuery($query, array(
-            ':id' => array(NULL, \PDO::PARAM_INT),
-            ':nm' => array($name, \PDO::PARAM_STR),
-            ':idImage' => array($idImage, \PDO::PARAM_STR)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':id' => array(NULL, \PDO::PARAM_INT),':nm' => array($name, \PDO::PARAM_STR),':idImage' => array($idImage, \PDO::PARAM_STR)));
     }
 
     /**
      * This function updates the name of the given graph ID
      * @param int $id ID of the graph
      * @param string $name New name of the graph
+     * @return string
      */
     public function updateGraphName(int $id, string $name) { //
         $query = "UPDATE Graph SET 'name' = :nm WHERE id=:id";
-
-        try {
-        $this->connection->executeQuery($query, array(
-            ':nm' => array($name, \PDO::PARAM_STR),
-            ':id' => array($id, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':nm' => array($name, \PDO::PARAM_STR),':id' => array($id, \PDO::PARAM_INT)));
     }
 
     /**
      * This function deletes the graph for the given ID
      * @param int $idGraph ID of the graph that will be deleted
+     * @return string
      */
     public function deleteGraph(int $id) {
         $query = "DELETE FROM Graph WHERE id=:id";
-
-        try {
-        $this->connection->executeQuery($query, array(':id' => array($id, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':id' => array($id, \PDO::PARAM_INT)));
     }
 
     /**
@@ -78,13 +57,7 @@ class GatewayGraph
      */
     public function getDataGraph() : array {
         $query = "SELECT * FROM Graph";
-
-        try {
-        $this->connection->executeQuery($query);
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
-        return $this->connection->getResults();
+        $err = $this->connectAndExecute($query);
+        return array($this->connection->getResults(),$err);
     }
 }

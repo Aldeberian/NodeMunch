@@ -7,12 +7,8 @@ use model\classes\Connection;
 /**
  * Class that manages the acces to users using SQL queries
  */
-class GatewayUser
+class GatewayUser extends Gateway
 {
-
-    public Connection $connection;
-
-
     public function __construct(Connection $connection) {
 
         $this->connection = $connection;
@@ -26,15 +22,8 @@ class GatewayUser
     public function readUser(int $idUser) 
     {
         $query = "SELECT * FROM User WHERE id = :id";
-
-        try {
-        $this->connection->executeQuery($query, array(
-            ':id'=>array($idUser, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
-        return $this->connection->getResults();
+        $err = $this->connectAndExecute($query, array(':id'=>array($idUser, \PDO::PARAM_INT)));
+        return array($this->connection->getResults(), $err);
     }
 
     /**
@@ -43,13 +32,7 @@ class GatewayUser
     public function updateUserBan(int $idUser) 
     {
         $query = "UPDATE User SET isBan = 1 WHERE id = :idUser";
-        try {
-            $this->connection->executeQuery($query, array(
-                ':idUser' => array($idUser, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':idUser' => array($idUser, \PDO::PARAM_INT)));
 
     }
 
@@ -59,13 +42,7 @@ class GatewayUser
     public function updateUserDeBan(int $idUser) 
     {
         $query = "UPDATE User SET isBan = 0 WHERE id = :idUser";
-        try {
-            $this->connection->executeQuery($query, array(
-                ':idUser' => array($idUser, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':idUser' => array($idUser, \PDO::PARAM_INT)));
 
     }
 
@@ -75,50 +52,27 @@ class GatewayUser
     public function deleteUser(int $idUser) 
     {
         $query = "DELETE FROM User WHERE id = :idUser";
-        try {
-        $this->connection->executeQuery($query, array(
-            ':idUser'=>array($idUser, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':idUser'=>array($idUser, \PDO::PARAM_INT)));
     }
 
 
     /**
      * @param int $idGraph The id of the graph that is going to be saved.
      */
-    public function saveGraph(int $idGraph, int $idUser) : void 
+    public function saveGraph(int $idGraph, int $idUser)
     {
         $query = "INSERT INTO Savedgraph VALUES (:idUser, :idGraph)";
-
-        try {
-        $this->connection->executeQuery($query, array(
-            ':idUser'=>array($idUser, \PDO::PARAM_INT),
-            ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':idUser'=>array($idUser, \PDO::PARAM_INT),':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
     }
 
 
  /**
      * @param int $idGraph The id of the graph that will be unsaved.
      */
-    public function unsaveGraph(int $idGraph, int $idUser) : void 
+    public function unsaveGraph(int $idGraph, int $idUser)
     {
         $query = "DELETE FROM Savedgraph WHERE idUser = :idUser AND idGraph = :idGraph";
-
-        try {
-        $this->connection->executeQuery($query, array(
-            ':idUser'=>array($idUser, \PDO::PARAM_INT),
-            ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
-        }
-
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':idUser'=>array($idUser, \PDO::PARAM_INT),':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
     }
 
 
@@ -126,18 +80,10 @@ class GatewayUser
     /**
      * @param int $idGraph The id of the graph that will be liked by the user.
      */
-    public function likeGraph(int $idGraph, int $idUser) : void 
+    public function likeGraph(int $idGraph, int $idUser)
     {
         $query = "INSERT INTO Likedgraph VALUES (:idUser, :idGraph)";
-
-        try {
-        $this->connection->executeQuery($query, array(
-            ':idUser'=>array($idUser, \PDO::PARAM_INT),
-            ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':idUser'=>array($idUser, \PDO::PARAM_INT),':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
     }
 
 
@@ -145,18 +91,10 @@ class GatewayUser
         /**
      * @param int $idGraph The id of the graph that will be unliked by a certain user.
      */
-    public function unlikeGraph(int $idGraph, int $idUser) : void 
+    public function unlikeGraph(int $idGraph, int $idUser)
     {
         $query = "DELETE FROM Likedgraph WHERE idUser = :idUser AND idGraph = :idGraph";
-
-        try {
-        $this->connection->executeQuery($query, array(
-            ':idUser'=>array($idUser, \PDO::PARAM_INT),
-            ':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        return $this->connectAndExecute($query, array(':idUser'=>array($idUser, \PDO::PARAM_INT),':idGraph'=>array($idGraph, \PDO::PARAM_INT)));
     }
 
 
@@ -166,23 +104,16 @@ class GatewayUser
         $queryVerification = "SELECT * FROM Friend WHERE (idUser1 = :id1 AND idUser2 = :id2)
                                                     OR (idUser1 = :id2 AND idUser2 = :id1)";
 
-        try {   
-            $this->connection->executeQuery($queryVerification, array(
-                ':id1'=> array($idUser1, \PDO::PARAM_INT),
-                ':id2'=> array($idUser2, \PDO::PARAM_INT)));
+        $err = $this->connectAndExecute($queryVerification, array(':id1'=> array($idUser1, \PDO::PARAM_INT),':id2'=> array($idUser2, \PDO::PARAM_INT)));
 
-            if ($this->connection->getResults()==NULL) #if the relation between these two users doesn't exist
-            {
-                $query = "INSERT INTO Friend VALUES (:id1, :id2)";
+        if ($err=="" && $this->connection->getResults()==NULL) #if the relation between these two users doesn't exist
+        {
+            $query = "INSERT INTO Friend VALUES (:id1, :id2)";
 
-                $this->connection->executeQuery($query, array(
-                    ':id1'=> array($idUser1, \PDO::PARAM_INT),
-                    ':id2'=> array($idUser2, \PDO::PARAM_INT)));
-            }       
+            $err = $this->connectAndExecute($query, array(':id1'=> array($idUser1, \PDO::PARAM_INT),':id2'=> array($idUser2, \PDO::PARAM_INT)));
         }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+
+        return $err;
     }
 
 
@@ -194,14 +125,9 @@ class GatewayUser
     public function getDataUser() : array {
 
         $query = "SELECT * FROM User";
-        try{
-            $this->connection->executeQuery($query, array());
-        }
-        catch (\PDOException $e) {
-            throw new \Exception($e->getMessage());
-        }
+        $err = $this->connectAndExecute($query, array());
 
-        return $this->connection->getResults();
+        return array($this->connection->getResults(),$err);
     }
 
 }
