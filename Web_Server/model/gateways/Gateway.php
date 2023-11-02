@@ -20,9 +20,13 @@ class Gateway
         $this->connection = $connection;
     }
 
-    protected function connectAndExecute(String $query, array $params) {
+    protected function connectAndExecute(String $query, array $params = NULL) {
         try {
-            $this->connection->executeQuery($query, $params);
+            if ($params == NULL)
+                $this->connection->executeQuery($query);
+            else {
+                $this->connection->executeQuery($query, $params);
+            }
             return "";
         }
         catch (\PDOException $e) {
