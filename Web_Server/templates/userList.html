@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User List</title>
+</head>
+
+<body>
+
+<!-- Check data existence -->
+{% if dataView is defined %}
+
+    <!-- Error handling -->
+    {% if dataErrorView is defined and dataErrorView|length >0 %}
+        <h2>ERREUR !!!!!</h2>
+        {% for value in dataErrorView %}
+            <p>{{value}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="get">
+        <input type="text" name="usrSearch" value="">
+        <button type="submit">🔍</button>
+    </form>
+
+    {% for user in dataView %}
+        {% if usrSearch == "" or user.name == usrSearch %}
+            <div>
+                <label>{{user.name}}</label>
+                <form method="post">
+                    <input type="hidden" name="action" value="seeProfile">
+                    <input type="hidden" name="userId" value="{{user.id}}">
+                    <button type="submit">View Profile</button>
+                </form>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% else %}
+    <h1>Erreur dans le passage des données utilisateur entre le controlleur et la vue</h1>
+{% endif %}
+
+</body>
+
+</html>

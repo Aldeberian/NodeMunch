@@ -16,7 +16,7 @@ class GuestController
      */
     public function __construct()
     {
-        //global $twig;
+        global $twig;
         session_start();
         $errTab = [];
 
@@ -46,12 +46,13 @@ class GuestController
                         throw new InvalidArgumentException("Le champ 'userId' n'est pas renseigné.");
                     }
                     else{
-                        $this->displayProfile($_REQUEST['userId']);
+                        $this->displayProfile($_REQUEST['userId'], $errTab);
                     }
 
                     break;
 
                 case null:
+                    $this->initialPage($errTab);
                     break;
 
                 default:
@@ -68,6 +69,14 @@ class GuestController
         }
     }
 
+    public function initialPage($errTab){
+        global $twig;
+        $model = new Model();
+        $users = $model->getAllUsers();
+        $dataView = ['users' => $users];
+        echo $twig->render('userList.html', ['dataView' => $dataView, 'dataErrorView' => $errTab]);
+    }
+
     public function getGraph(int $graphId) {
         $data = Model::getDataGraphsFromGateways();
         foreach($data as $graph){
@@ -77,12 +86,15 @@ class GuestController
         }
     }
 
-    public function displayProfile(int $userId) {
+    public function displayProfile(int $userId, $errTab) {
         $data = Model::getDataUsersFromGateways();
         foreach($data as $user){
             if($user->getId()==$userId){
-                return $user;
+                $usr = $user;
             }
         }
+        global $twig;
+        $viewData = ['user' => $usr];
+        echo $twig->render('userProfileView.html', ['dataView' => $viewData, 'dataErrorView' => $errTab]);
     }
 }
