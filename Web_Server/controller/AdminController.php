@@ -24,15 +24,8 @@ class AdminController
             switch($action) {
 
                 case null :
-
-                    $this->initialPage($dataErrorView);
-
+                    $this->displayGraphs($dataErrorView);
                     break;
-
-                /*case 'deleteAGraph' :
-
-                    $this->deleteAGraph();
-                    break;*/
 
                 case 'banUser' :
 
@@ -42,6 +35,11 @@ class AdminController
                 case 'unBanUser' :
 
                     $this->unBanUser($dataErrorView);
+                    break;
+
+                case 'deleteGraph' :
+
+                    $this->deleteGraph($dataErrorView);
                     break;
 
                 default :
@@ -76,11 +74,33 @@ class AdminController
     }
 
 
-    public function deleteAGraph($idGraph) {
+    public function displayGraphs($dataErrorView) {
 
         global $twig;
 
+        $model = new Model();
+
+        /* try{ */
+            $graphs = $model->getAllGraphs();
+        /* }catch(Exception $e){
+
+        } */
+
+        $dataView = ['graphs' => $graphs];
+
+        echo $twig->render('deleteGraph.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
+
+    public function deleteGraph($dataErrorView) {
+
+    $idGraph = $_POST['idGraph'];
+
+    $model = new Model();
+
+    $model->deleteGraphById($idGraph);
+
+    $this->displayGraphs($dataErrorView);
+}
 
     public function banUser($dataErrorView) {
 

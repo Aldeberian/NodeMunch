@@ -34,6 +34,24 @@ class Model
     }
 
     /**
+     *  Gets all graphs from the database via the GatewayGraph.
+     */
+    public static function getAllGraphs() : array {
+
+        $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
+
+        $gatewayGraph = new GatewayGraph($connection);
+
+        $res = $gatewayGraph->getDataGraph();
+
+        if($res[1] != "") {
+            throw new \Exception($res[1]);
+        } else {
+            return $res[0];
+        }
+    }
+
+    /**
      *  Gets a specific user by its id via the GatewayUser.
      */
     public static function getUserWithId($userId) : array {
@@ -78,6 +96,19 @@ class Model
         $gatewayUser = new GatewayUser($connection);
 
         $res = $gatewayUser->updateUserDeBan($userId);
+
+        if($res!=""){
+            throw new \Exception($res);
+        }
+    }
+
+    public static function deleteGraphById($graphId){
+
+        $connection = new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86");
+
+        $gatewayGraph = new GatewayGraph($connection);
+
+        $res = $gatewayGraph->deleteGraph($graphId);
 
         if($res!=""){
             throw new \Exception($res);

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete any graph</title>
+</head>
+<body>
+
+{% if dataView is defined %}
+<div align="center">
+    {% if dataErrorView is defined and dataErrorView|length > 0 %}
+        {% for value in dataViewError %}
+            <p>{{value}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <h2>Delete any graph</h2>
+    <hr/>
+    <h4> Select the graph to delete: </h4>
+
+    {% for graph in dataView.graphs %}
+        <form method="post">
+            <input type="hidden" name="action" value="deleteGraph">
+            <input type="hidden" name="idGraph" value="{{graph.id}}">
+            {{ "#{graph.id} : #{graph.name}" }}
+            <button type="submit">DELETE</button>
+        </form>
+        <br/><br/>
+    {% endfor %}
+</div>
+{% else %}
+<p> Error !! <br/>Unexpected use of the view !</p>
+{% endif %}
+
+</body>
+</html>
