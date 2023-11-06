@@ -2,8 +2,9 @@
 
 namespace controller;
 
-use Twig_Environment;
-use Twig_Loader_Filesystem;
+use Exception;
+use model\Model;
+use PDOException;
 
 //En gros jsais pas comment installer twig sans les permissions de l'IUT
 //jsais pas c'est bizarre, faut que je code de chez moi les permissions de l'IUT sont infames
