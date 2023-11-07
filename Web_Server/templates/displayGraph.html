@@ -7,7 +7,7 @@
 <body>
 
 {% if dataView is defined %}
-<div align="center">
+    <div align="center">
     {% if dataErrorView is defined and dataErrorView|length > 0 %}
         {% for value in dataViewError %}
             <p>{{value}}</p>
@@ -18,15 +18,20 @@
     <hr/>
     <h4>Graphs : </h4>
 
-    {% for graph in dataView.graphs %}
+    <div style="margin-left: 100px; display: flex; flex-direction: row; flex-wrap: wrap;">
+        {% for graph in dataView.graphs %}
         <form method="post">
             <input type="hidden" name="action" value="deleteGraph">
             <input type="hidden" name="idGraph" value="{{graph.id}}">
 
-            <div style="position: center; width:200px; padding: 10px; border: 2px solid black; border-radius: 10px;">
+            <div style=" margin: 20px; width:auto; padding-left: 30px; padding-right: 30px; padding-bottom: 5px; border: 2px solid black; border-radius: 10px;">
                 <p>{{graph.name}}</p>
                 <p>Id : {{graph.id}}</p>
-                <p>Creator : {{graph.creator}}</p>
+                {% for user in dataView.userInfo %}
+                    {% if user.id == graph.creator %}
+                        <p>Creator : {{user.pseudo}}</p>
+                    {% endif %}
+                {% endfor %}
                 <p>// image preview //</p>
 
                 <div>
@@ -35,7 +40,8 @@
             </div>
         </form>
         <br/><br/>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
 {% else %}
 <p> Error !! <br/>Unexpected use of the view !</p>

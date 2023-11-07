@@ -80,15 +80,10 @@ class AdminController
 
         $model = new Model();
 
-        /* try{ */
-            $graphs = $model->getAllGraphs();
-            $users = $model->getUsers();
-        /* }catch(Exception $e){
+        $graphs = $model->getAllGraphs();
+        $users = $model->getAllUsers();
 
-        } */
-
-        $dataView = ['graphs' => $graphs];
-
+        $dataView = ['graphs' => $graphs, 'userInfo' => $users];
         echo $twig->render('displayGraph.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
 
