@@ -16,14 +16,23 @@
 
     <h2>Delete any graph</h2>
     <hr/>
-    <h4> Select the graph to delete: </h4>
+    <h4>Graphs : </h4>
 
     {% for graph in dataView.graphs %}
         <form method="post">
             <input type="hidden" name="action" value="deleteGraph">
             <input type="hidden" name="idGraph" value="{{graph.id}}">
-            {{ "#{graph.id} : #{graph.name}" }}
-            <button type="submit">DELETE</button>
+
+            <div style="position: center; width:200px; padding: 10px; border: 2px solid black; border-radius: 10px;">
+                <p>{{graph.name}}</p>
+                <p>Id : {{graph.id}}</p>
+                <p>Creator : {{graph.creator}}</p>
+                <p>// image preview //</p>
+
+                <div>
+                    <button type="submit">DELETE</button>
+                </div>
+            </div>
         </form>
         <br/><br/>
     {% endfor %}

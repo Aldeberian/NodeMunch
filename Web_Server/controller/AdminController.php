@@ -82,13 +82,14 @@ class AdminController
 
         /* try{ */
             $graphs = $model->getAllGraphs();
+            $users = $model->getUsers();
         /* }catch(Exception $e){
 
         } */
 
         $dataView = ['graphs' => $graphs];
 
-        echo $twig->render('deleteGraph.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
+        echo $twig->render('displayGraph.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
 
     public function deleteGraph($dataErrorView) {
