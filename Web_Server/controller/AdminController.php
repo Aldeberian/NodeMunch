@@ -25,7 +25,7 @@ class AdminController
             switch($action) {
 
                 case null :
-                    $this->initialPage($dataErrorView);
+                    $this->displayGraphs($dataErrorView);
                     break;
 
                 case 'banUser' :
@@ -101,9 +101,7 @@ class AdminController
 
         $idGraph = $_POST['idGraph'];
 
-        $model = new Model();
-
-        $model->deleteGraphById($idGraph);
+        Model::deleteGraphById($idGraph);
 
         $this->displayGraphs($dataErrorView);
     }
@@ -112,9 +110,7 @@ class AdminController
 
         $idUser = $_POST['idUser'];
 
-        $model = new Model();
-
-        $model->banUser($idUser);
+        Model::banUser($idUser);
 
         $this->initialPage($dataErrorView);
     }
