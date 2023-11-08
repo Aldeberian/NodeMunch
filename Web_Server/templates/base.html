@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+    </head>
+    <body>
+        {% if dataView is defined %}
+        <div align="center" class="content">
+            {% if dataErrorView is defined and dataErrorView|length > 0 %}
+            {% for value in dataViewError %}
+            <p>{{value}}</p>
+            {% endfor %}
+            {% endif %}
+
+            <h2>{% block pageTitle %}{% endblock %}</h2>
+            <hr/>
+            <h4>{% block pageSubTitle %}{% endblock %}</h4>
+            <form method="GET">
+                <input id="search" name="search" type="text" placeholder="Type here">
+                <input id="submit" type="submit" value="Search">
+            </form>
+
+            {% block content %}{% endblock %}
+
+        </div>
+        {% else %}
+        <p> Error !! <br/>Unexpected use of the view !</p>
+        {% endif %}
+    </body>
+</html>

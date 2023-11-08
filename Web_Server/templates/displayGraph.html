@@ -1,56 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <meta charset="UTF-8">
-    <title>Delete any graph</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-{% if dataView is defined %}
-    <div align="center">
-    {% if dataErrorView is defined and dataErrorView|length > 0 %}
-        {% for value in dataViewError %}
-            <p>{{value}}</p>
-        {% endfor %}
-    {% endif %}
+{% block title %}Graphs library{% endblock %}
 
-    <h2>Delete any graph</h2>
-    <hr/>
-    <h4>Graphs : </h4>
-    <form method="GET">
-        <input id="search" name="search" type="text" placeholder="Type here">
-        <input id="submit" type="submit" value="Search">
-    </form>
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<meta charset="UTF-8"/>
+{% endblock %}
+
+{% block pageTitle %}Graphs{% endblock%}
+
+{% block pageSubTitle %}Graphs :{% endblock%}
+
+{% block content %}
+
     <div style="margin-left: 100px; display: flex; flex-direction: row; flex-wrap: wrap;">
         {% for graph in dataView.graphs %}
             {% if Search is not defined or graph.name == Search %}
-            <form method="post">
-                <input type="hidden" name="action" value="deleteGraph">
-                <input type="hidden" name="idGraph" value="{{graph.id}}">
+                <form method="post">
+                    <input type="hidden" name="action" value="deleteGraph">
+                    <input type="hidden" name="idGraph" value="{{graph.id}}">
 
-                <div style=" margin: 20px; width:auto; padding-left: 30px; padding-right: 30px; padding-bottom: 5px; border: 2px solid black; border-radius: 10px;">
-                    <p>{{graph.name}}</p>
-                    <p>Id : {{graph.id}}</p>
-                    {% for user in dataView.userInfo %}
+                    <div style=" margin: 20px; width:auto; padding-left: 30px; padding-right: 30px; padding-bottom: 5px; border: 2px solid black; border-radius: 10px;">
+                        <p>{{graph.name}}</p>
+                        <p>Id : {{graph.id}}</p>
+                        {% for user in dataView.userInfo %}
                         {% if user.id == graph.creator %}
-                            <p>Creator : {{user.pseudo}}</p>
+                        <p>Creator : {{user.pseudo}}</p>
                         {% endif %}
-                    {% endfor %}
-                    <p>// image preview //</p>
+                        {% endfor %}
+                        <p>// image preview //</p>
 
-                    <div>
-                        <button type="submit">DELETE</button>
+                        <div>
+                            <button type="submit" class="btn btn-lg btn-danger p-1">DELETE</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
             {% endif %}
-        <br/><br/>
+            <br/><br/>
         {% endfor %}
     </div>
-</div>
-{% else %}
-<p> Error !! <br/>Unexpected use of the view !</p>
-{% endif %}
 
-</body>
-</html>
+{% endblock %}
