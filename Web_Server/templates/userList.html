@@ -27,16 +27,16 @@
     </form>
 
     {% for user in dataView %}
-        {% if usrSearch == "" or user.name == usrSearch %}
+        <!-- {% if usrSearch == "" or user['pseudo'] == usrSearch %} -->
             <div>
-                <label>{{user.name}}</label>
+                <p>{{user['pseudo']}}</p>
                 <form method="post">
                     <input type="hidden" name="action" value="seeProfile">
                     <input type="hidden" name="userId" value="{{user.id}}">
                     <button type="submit">View Profile</button>
                 </form>
             </div>
-        {% endif %}
+        <!-- {% endif %} -->
     {% endfor %}
 
 {% else %}

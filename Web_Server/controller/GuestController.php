@@ -88,6 +88,7 @@ class GuestController
         foreach($data as $user){
             if($user->getId()==$userId){
                 $usr = $user;
+                break;
             }
         }
         global $twig;
