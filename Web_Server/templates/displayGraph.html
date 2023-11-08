@@ -17,28 +17,33 @@
     <h2>Delete any graph</h2>
     <hr/>
     <h4>Graphs : </h4>
-
+    <form method="GET">
+        <input id="search" name="search" type="text" placeholder="Type here">
+        <input id="submit" type="submit" value="Search">
+    </form>
     <div style="margin-left: 100px; display: flex; flex-direction: row; flex-wrap: wrap;">
         {% for graph in dataView.graphs %}
-        <form method="post">
-            <input type="hidden" name="action" value="deleteGraph">
-            <input type="hidden" name="idGraph" value="{{graph.id}}">
+            {% if Search is not defined or graph.name == Search %}
+            <form method="post">
+                <input type="hidden" name="action" value="deleteGraph">
+                <input type="hidden" name="idGraph" value="{{graph.id}}">
 
-            <div style=" margin: 20px; width:auto; padding-left: 30px; padding-right: 30px; padding-bottom: 5px; border: 2px solid black; border-radius: 10px;">
-                <p>{{graph.name}}</p>
-                <p>Id : {{graph.id}}</p>
-                {% for user in dataView.userInfo %}
-                    {% if user.id == graph.creator %}
-                        <p>Creator : {{user.pseudo}}</p>
-                    {% endif %}
-                {% endfor %}
-                <p>// image preview //</p>
+                <div style=" margin: 20px; width:auto; padding-left: 30px; padding-right: 30px; padding-bottom: 5px; border: 2px solid black; border-radius: 10px;">
+                    <p>{{graph.name}}</p>
+                    <p>Id : {{graph.id}}</p>
+                    {% for user in dataView.userInfo %}
+                        {% if user.id == graph.creator %}
+                            <p>Creator : {{user.pseudo}}</p>
+                        {% endif %}
+                    {% endfor %}
+                    <p>// image preview //</p>
 
-                <div>
-                    <button type="submit">DELETE</button>
+                    <div>
+                        <button type="submit">DELETE</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+            {% endif %}
         <br/><br/>
         {% endfor %}
     </div>

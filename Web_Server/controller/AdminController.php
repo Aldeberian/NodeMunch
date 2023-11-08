@@ -20,6 +20,7 @@ class AdminController
         try {
 
             $action = $_REQUEST['action'] ?? null;
+            $searchVal = $_REQUEST['search'] ?? null;
 
             switch($action) {
 
@@ -83,20 +84,33 @@ class AdminController
         $graphs = $model->getAllGraphs();
         $users = $model->getAllUsers();
 
-        $dataView = ['graphs' => $graphs, 'userInfo' => $users];
+        $foundGraphs = null;
+        if(isset($_GET['search']) and $_GET['search'] != ''){
+            $searchVal = strtolower($_GET['search']);
+            foreach ($graphs as $graph){
+                $name = strtolower($graph['name']);
+                if(strpos($name, $searchVal) !== false){
+                    $foundGraphs[] = $graph;
+                }
+            }
+            $dataView = ['graphs' => $foundGraphs, 'userInfo' => $users];
+        }else{
+            $dataView = ['graphs' => $graphs, 'userInfo' => $users];
+        }
+
         echo $twig->render('displayGraph.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
 
     public function deleteGraph($dataErrorView) {
 
-    $idGraph = $_POST['idGraph'];
+        $idGraph = $_POST['idGraph'];
 
-    $model = new Model();
+        $model = new Model();
 
-    $model->deleteGraphById($idGraph);
+        $model->deleteGraphById($idGraph);
 
-    $this->displayGraphs($dataErrorView);
-}
+        $this->displayGraphs($dataErrorView);
+    }
 
     public function banUser($dataErrorView) {
 
