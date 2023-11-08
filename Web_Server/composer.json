@@ -8,6 +8,7 @@
     },
     "require": {
         "twig/twig": "^3.0",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+        "nikic/fast-route": "^v1.3.0"
     }
 }
