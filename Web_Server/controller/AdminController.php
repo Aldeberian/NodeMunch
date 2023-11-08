@@ -20,7 +20,6 @@ class AdminController
         try {
 
             $action = $_REQUEST['action'] ?? null;
-            $searchVal = $_REQUEST['search'] ?? null;
 
             switch($action) {
 
