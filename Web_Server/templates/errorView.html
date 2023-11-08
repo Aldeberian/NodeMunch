@@ -6,10 +6,23 @@
 </head>
 <body>
 
-  <h2>ERROR VIEW</h2>
+  <h2>ERROR(S) :</h2>
   {% if dataErrorView is defined %}
-    {%for value in dataErrorView %}
-      <p>{{value}}</p>
+    {% for value in dataErrorView %}
+        {% switch value%}
+            {% case 'pseudoError' %}
+                <p>The pseudo is empty !</p>
+                </br>
+            {% case 'pseudoNotWantedChar' %}
+                <p>The pseudo contain an incorrect character (space, tab, new line)</p>
+                </br>
+            {% case 'emptyMailError' %}
+                <p>The mail is empty !</p>
+                </br>
+            {% case 'badMailError' %}
+                <p>The mail format is incorrect !</p>
+                </br>
+        {% endswitch %}
     {% endfor %}
   {% endif %}
 </body>
