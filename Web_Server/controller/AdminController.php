@@ -109,9 +109,7 @@ class AdminController
 
         $idUser = $_POST['idUser'];
 
-        $model = new Model();
-
-        $model->unBanUser($idUser);
+        Model::unBanUser($idUser);
 
         $this->initialPage($dataErrorView);
     }

@@ -66,9 +66,3 @@ class Model
         $gatewayGraph->deleteGraph($graphId);
     }
 }
-
-
-//var_dump(Model::getAllUsers());
-//model::getUserWithId(2);
-//Model::banUser(2);
-//Model::unBanUser(2);
