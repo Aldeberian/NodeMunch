@@ -26,7 +26,7 @@ class GatewayGraph extends Gateway
      */
     public function insertGraphIntoDatabase(string $name, string $idImage) { //Should pass directly the object ?
         $query = "INSERT INTO Graph VALUES(:id, :nm, idImage)";
-        return $this->connectAndExecute($query, array(':id' => array(NULL, \PDO::PARAM_INT),':nm' => array($name, \PDO::PARAM_STR),':idImage' => array($idImage, \PDO::PARAM_STR)));
+        $this->connectAndExecute($query, array(':id' => array(NULL, \PDO::PARAM_INT),':nm' => array($name, \PDO::PARAM_STR),':idImage' => array($idImage, \PDO::PARAM_STR)));
     }
 
     /**
@@ -37,7 +37,7 @@ class GatewayGraph extends Gateway
      */
     public function updateGraphName(int $id, string $name) { //
         $query = "UPDATE Graph SET 'name' = :nm WHERE id=:id";
-        return $this->connectAndExecute($query, array(':nm' => array($name, \PDO::PARAM_STR),':id' => array($id, \PDO::PARAM_INT)));
+        $this->connectAndExecute($query, array(':nm' => array($name, \PDO::PARAM_STR),':id' => array($id, \PDO::PARAM_INT)));
     }
 
     /**
@@ -47,7 +47,7 @@ class GatewayGraph extends Gateway
      */
     public function deleteGraph(int $id) {
         $query = "DELETE FROM Graph WHERE id=:id";
-        return $this->connectAndExecute($query, array(':id' => array($id, \PDO::PARAM_INT)));
+        $this->connectAndExecute($query, array(':id' => array($id, \PDO::PARAM_INT)));
     }
 
     /**
@@ -57,7 +57,7 @@ class GatewayGraph extends Gateway
      */
     public function getDataGraph() : array {
         $query = "SELECT * FROM Graph";
-        $err = $this->connectAndExecute($query);
-        return array($this->connection->getResults(),$err);
+        $this->connectAndExecute($query);
+        return $this->connection->getResults();
     }
 }

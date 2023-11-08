@@ -29,7 +29,7 @@ class GatewayNode extends Gateway
     public function insertNodeIntoDatabase(int $id, int $posX, int $posY)
     {
         $query = "INSERT INTO Node VALUES(:id, :pX, :pY)";
-        return $this->connectAndExecute($query, array(':id'=> array($id, \PDO::PARAM_INT),':pX'=> array($posX, \PDO::PARAM_INT),':pY'=> array($posY, \PDO::PARAM_INT)));
+        $this->connectAndExecute($query, array(':id'=> array($id, \PDO::PARAM_INT),':pX'=> array($posX, \PDO::PARAM_INT),':pY'=> array($posY, \PDO::PARAM_INT)));
     }
 
 
@@ -42,7 +42,7 @@ class GatewayNode extends Gateway
     public function insertNodeIntoCompoNode(int $idGraph, int $idNode)
     {
         $query = "INSERT INTO CompositionNode VALUES (:idG, :idN)";
-        return $this->connectAndExecute($query, array(':idG'=> array($idGraph, \PDO::PARAM_INT),':idN'=> array($idNode, \PDO::PARAM_INT)));
+        $this->connectAndExecute($query, array(':idG'=> array($idGraph, \PDO::PARAM_INT),':idN'=> array($idNode, \PDO::PARAM_INT)));
     }
 
 
