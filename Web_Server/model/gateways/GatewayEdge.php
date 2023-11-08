@@ -30,7 +30,7 @@ class GatewayEdge extends Gateway
     {
         $query = "INSERT INTO Edge VALUES (:nodeA, :nodeB, :id)";      
 
-        return $this->connectAndExecute($query, array(':nodeA'=> array($nodeA, \PDO::PARAM_INT), ':nodeB'=> array($nodeB, \PDO::PARAM_INT),':id'=> array($id, \PDO::PARAM_INT)));
+        $this->connectAndExecute($query, array(':nodeA'=> array($nodeA, \PDO::PARAM_INT), ':nodeB'=> array($nodeB, \PDO::PARAM_INT),':id'=> array($id, \PDO::PARAM_INT)));
 
         #echo 'insertion reussie'; #when we need to test to see if something happened
     }
@@ -44,9 +44,9 @@ class GatewayEdge extends Gateway
     {
         $query = "SELECT * FROM Edge";
 
-        $err = $this->connectAndExecute($query, array());
+        $this->connectAndExecute($query, array());
 
-        return array($this->connection->getResults(),$err);
+        return $this->connection->getResults();
     }
 
 }

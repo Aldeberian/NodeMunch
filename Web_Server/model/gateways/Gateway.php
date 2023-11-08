@@ -27,10 +27,10 @@ class Gateway
             else {
                 $this->connection->executeQuery($query, $params);
             }
-            return "";
         }
         catch (\PDOException $e) {
-            return $e->getMessage();
+
+            echo $e->getMessage();  //On fait quoi dans ce cas ?
         }
     }
 }

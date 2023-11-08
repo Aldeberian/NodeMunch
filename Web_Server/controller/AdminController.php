@@ -25,7 +25,7 @@ class AdminController
             switch($action) {
 
                 case null :
-                    $this->displayGraphs($dataErrorView);
+                    $this->initialPage($dataErrorView);
                     break;
 
                 case 'banUser' :
@@ -65,9 +65,7 @@ class AdminController
 
         global $twig;
 
-        $model = new Model();
-
-        $users = $model->getAllUsers();
+        $users = Model::getAllUsers();
 
         $dataView = ['users' => $users];
 
@@ -79,10 +77,8 @@ class AdminController
 
         global $twig;
 
-        $model = new Model();
-
-        $graphs = $model->getAllGraphs();
-        $users = $model->getAllUsers();
+        $graphs = Model::getAllGraphs();
+        $users = Model::getAllUsers();
 
         $foundGraphs = null;
         if(isset($_GET['search']) and $_GET['search'] != ''){
@@ -127,56 +123,8 @@ class AdminController
 
         $idUser = $_POST['idUser'];
 
-        $model = new Model();
-
-        $model->unBanUser($idUser);
+        Model::unBanUser($idUser);
 
         $this->initialPage($dataErrorView);
     }
-
-
 }
-
-
-//Ancienne fonction unBanUser qui était appelée depuis initialPage à la suite d'un submit du formulaire
-//elle unbannait le user puis l'affichait dans une view 'unBanUserStatement'
-//Pour plus de dynamisme je ne fais que bannir ou unbannir puis je raffiche le formulaire directement
-/*public function unBanUser($dataErrorView) {
-
-    global $twig;
-
-    $idUser = $_POST['idUser'];
-
-    $model = new Model();
-
-    $model->unBanUser($idUser);
-
-    $user = $model->getUserWithId($idUser);
-
-    $dataView = ['user' => $user];
-
-    echo $twig->render('unBanUserStatement.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
-}
-
-
-
-code de la vue 'unBanUserStatement' :
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>UNBAN {{dataView.user[0].pseudo}}</title>
-</head>
-<body>
-
-<h2>The user unbanned :</h2>
-<ul>
-    <li>
-        <p>Pseudo :{{dataView.user[0].pseudo}}</p>
-        <p>Mail :{{dataView.user[0].email}}</p>
-    </li>
-</ul>
-
-</body>
-</html>
-*/
