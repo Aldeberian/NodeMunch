@@ -19,6 +19,7 @@ class AdminController
 
         try {
 
+            //here we have to test that the role of the user is really admin double check is never too much
             $action = $_REQUEST['action'] ?? null;
 
             switch($action) {
