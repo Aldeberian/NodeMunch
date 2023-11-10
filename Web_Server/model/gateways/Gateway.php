@@ -2,7 +2,7 @@
 
 namespace model\gateways;
 
-use model\classes\Connection;
+use model\metier\Connection;
 
 /**
  * Class that manages the acces to links using SQL queries

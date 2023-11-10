@@ -1,6 +1,6 @@
 <?php
 
-namespace model\classes;
+namespace model\metier;
 
 class User
 {

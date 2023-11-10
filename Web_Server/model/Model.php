@@ -2,7 +2,7 @@
 
 namespace model;
 
-use model\classes\Connection;
+use model\metier\Connection;
 use model\gateways\GatewayGraph;
 use model\gateways\GatewayUser;
 
