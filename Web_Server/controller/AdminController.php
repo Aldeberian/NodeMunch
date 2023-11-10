@@ -17,6 +17,9 @@ class AdminController
 
         $dataErrorView = [];
 
+//        array of strings that corresponds to the baseAdminMenu's options
+        $menuOptions = ['Users', 'Graphs'];
+
         try {
 
             $action = $_REQUEST['action'] ?? null;
@@ -24,6 +27,14 @@ class AdminController
             switch($action) {
 
                 case null :
+                    $this->baseAdminMenu($dataErrorView, $menuOptions);
+                    break;
+
+                case 'Users' :
+                    $this->displayUsers($dataErrorView);
+                    break;
+
+                case 'Graphs' :
                     $this->displayGraphs($dataErrorView);
                     break;
 
@@ -48,7 +59,7 @@ class AdminController
 
                 default :
                     $dataErrorView = "Call error";
-                    echo $twig->render('banUnBanUsers.html', ['dataErrorView' => $dataErrorView]);
+                    echo $twig->render('baseAdminMenu.html', ['dataErrorView' => $dataErrorView, 'menuOptions' => $menuOptions]);
                     break;
             }
         }
@@ -63,7 +74,42 @@ class AdminController
         }
     }
 
-    public function initialPage($dataErrorView) {
+
+    /**
+     * Function that search for a matching pattern in an ensemble of variables.
+     *
+     * @param $searchVal the pattern that is being searched
+     * @param $ensembleToSearch the ensemble of objects that are being searched
+     * @param $variable the attribute that is being looked into for the pattern in those objects
+     * @return array an array of objects that had their variable containing the pattern wanted
+     */
+    private function search($searchVal, $ensembleToSearch, $variable): array
+    {
+        $foundElements = null;
+
+        foreach ($ensembleToSearch as $element){
+
+            $value = strtolower($element[$variable]);
+
+            if(strpos($value, $searchVal) !== false){
+                var_dump($value);
+                $foundElements[] = $element;
+            }
+        }
+        return $foundElements;
+    }
+
+    public function baseAdminMenu($dataErrorView, $menuOptions) {
+
+        global $twig;
+
+        $dataView = ['menuOptions' => $menuOptions];
+
+        echo $twig->render('baseAdminMenu.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
+
+    }
+
+    public function displayUsers($dataErrorView) {
 
         global $twig;
 
@@ -71,7 +117,7 @@ class AdminController
 
         $dataView = ['users' => $users];
 
-        echo $twig->render('banUnBanUsers.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
+        echo $twig->render('displayUsers.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
 
 
@@ -82,16 +128,10 @@ class AdminController
         $graphs = Model::getAllGraphs();
         $users = Model::getAllUsers();
 
-        $foundGraphs = null;
         if(isset($_GET['search']) and $_GET['search'] != ''){
             $searchVal = strtolower($_GET['search']);
-            foreach ($graphs as $graph){
-                $name = strtolower($graph['name']);
-                if(strpos($name, $searchVal) !== false){
-                    $foundGraphs[] = $graph;
-                }
-            }
-            $dataView = ['graphs' => $foundGraphs, 'userInfo' => $users];
+
+            $dataView = ['graphs' => $this->search($searchVal, $graphs, 'name'), 'userInfo' => $users];
         }else{
             $dataView = ['graphs' => $graphs, 'userInfo' => $users];
         }
@@ -114,7 +154,7 @@ class AdminController
 
         Model::banUser($idUser);
 
-        $this->initialPage($dataErrorView);
+        $this->displayUsers($dataErrorView);
     }
 
     public function unBanUser($dataErrorView) {
@@ -123,7 +163,7 @@ class AdminController
 
         Model::unBanUser($idUser);
 
-        $this->initialPage($dataErrorView);
+        $this->displayUsers($dataErrorView);
     }
 
 
