@@ -9,9 +9,9 @@ class Validation{
         }        
     }
 
-    //We'll have to give this function once the pseudo is trimed
     public static function validPseudo(string $pseudo)
     {
+        $pseudo = self::cleanPseudo($pseudo);
         if (!isset($pseudo) or $pseudo == '')
         {
             $dataErrorView[] = 'pseudoError';
@@ -35,10 +35,14 @@ class Validation{
 
     public static function cleanPseudo(string $pseudo)
     {
-        if (trim($pseudo, " \n\r\t\v\x00") != $pseudo)
+        $cleanPseudo = trim($pseudo, " \n\r\t\v\x00");
+        if ( $cleanPseudo!= $pseudo)
+        {
             $dataErrorView[] = 'pseudoNotWantedChar';
-        return trim($pseudo," \n\r\t\v\x00");
+            $cleanPseudo='';
+        }
+        return $cleanPseudo;
     }
-    
+
    
 }

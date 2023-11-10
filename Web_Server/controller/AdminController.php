@@ -42,8 +42,11 @@ class AdminController
                     $this->deleteGraph($dataErrorView);
                     break;
 
-                default :
+                case 'testGenerator':
+                    $this->affNodes($dataErrorView);
+                    break;
 
+                default :
                     $dataErrorView = "Call error";
                     echo $twig->render('banUnBanUsers.html', ['dataErrorView' => $dataErrorView]);
                     break;
@@ -122,4 +125,15 @@ class AdminController
 
         $this->initialPage($dataErrorView);
     }
+
+
+
+    public function affNodes($dataErrorView)
+    {
+        global $twig;
+        $nodes = Model::getNodesRandom();
+        $dataView = ['nodes' => $nodes];
+        echo $twig->render('test.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
+    }
+
 }

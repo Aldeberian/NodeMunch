@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+{% if dataView is defined %}
+    {% for node in dataView.nodes %}
+        <p>Id : {{node.id}}</p>
+        <p>valX : {{node.posX}}</p>
+        <p>valY : {{node.posY}}</p>
+{% endfor %}
+{% endif %}
+
+</body>
+</html>

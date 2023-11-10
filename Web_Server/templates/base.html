@@ -22,6 +22,11 @@
                 <input id="submit" type="submit" value="Search">
             </form>
 
+            //modif here
+            <form method="post">
+                <input type="hidden" name="action" value="testGenerator">
+                <button type="submit" class="btn btn-lg btn-danger p-1">afficher</button>
+            </form>
             {% block content %}{% endblock %}
 
         </div>

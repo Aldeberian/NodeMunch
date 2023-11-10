@@ -2,6 +2,7 @@
 
 namespace model;
 
+use model\gateways\GeneratorData;
 use model\metier\Connection;
 use model\gateways\GatewayGraph;
 use model\gateways\GatewayUser;
@@ -64,5 +65,13 @@ class Model
         $gatewayGraph = new GatewayGraph(new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86"));
 
         $gatewayGraph->deleteGraph($graphId);
+    }
+
+
+    public static function getNodesRandom()
+    {
+        $genRandom = new GeneratorData();
+        $nodes = $genRandom->generateRandomNodes();
+        return $nodes;
     }
 }

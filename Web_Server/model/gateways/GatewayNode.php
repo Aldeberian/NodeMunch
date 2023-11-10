@@ -3,6 +3,7 @@
 namespace model\gateways;
 
 use model\metier\Connection;
+use model\metier\Node;
 
 /**
  * Class that manages the acces to links using SQL queries
@@ -46,5 +47,28 @@ class GatewayNode extends Gateway
     }
 
 
-   
+    public static function findCloseNode($tabNode, float $valX, float $valY)
+    {
+        foreach ($tabNode as $node)
+        {
+            if ( abs($node->getPosX()-$valX) < 3  && abs($node->getPosY()-$valY) < 2)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public static function unusedId($tabNode, int $num)
+    {
+        foreach($tabNode as $node)
+        {
+            if ($node->getId() == $num)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
