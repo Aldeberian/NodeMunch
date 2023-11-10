@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div style="padding-top: 20px;">
+        {% for option in dataView.menuOptions %}
+        <form method="post">
+            <input type="hidden" name="action" value={{option}}>
+            <button type="submit">{{option}}</button>
+        </form>
+        <br/><br/>
+        {% endfor %}
+    </div>
+
+{% endblock %}

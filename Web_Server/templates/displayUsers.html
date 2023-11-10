@@ -1,0 +1,37 @@
+{% extends "baseWithSearchbar.html" %}
+
+{% block title %}Graphs library{% endblock %}
+
+{% block head %}
+{{ parent() }}
+
+<meta charset="UTF-8"/>
+{% endblock %}
+
+{% block pageTitle %}Users{% endblock%}
+
+{% block pageSubTitle %}search for any user{% endblock%}
+
+{% block content %}
+
+    <div style="padding-top: 20px;">
+        {% for user in dataView.users %}
+        <form method="post">
+            {% if user.isBan == '0' %}
+            <input type="hidden" name="action" value="banUser">
+            <input type="hidden" name="idUser" value="{{user.id}}">
+            {{user.pseudo}}
+            <button type="submit">BAN</button>
+
+            {% elseif user.isBan == '1' %}
+            <input type="hidden" name="action" value="unBanUser">
+            <input type="hidden" name="idUser" value="{{user.id}}">
+            {{user.pseudo}}
+            <button type="submit">UNBAN</button>
+            {% endif %}
+        </form>
+        <br/><br/>
+        {% endfor %}
+    </div>
+
+{% endblock %}
