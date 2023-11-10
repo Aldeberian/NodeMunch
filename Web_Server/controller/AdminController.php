@@ -60,6 +60,35 @@ class AdminController
         }
     }
 
+
+    /**
+     * Function that search for a matching pattern in an ensemble of variables.
+     *
+     * @param $searchVal the pattern that is being searched
+     * @param $ensembleToSearch the ensemble of objects that are being searched
+     * @param $variable the attribute that is being looked into for the pattern in those objects
+     * @return array an array of objects that had their variable containing the pattern wanted
+     */
+    private function search($searchVal, $ensembleToSearch, $variable): array
+    {
+        $foundElements = null;
+
+        var_dump($searchVal);
+        foreach ($ensembleToSearch as $element){
+            var_dump($element);
+
+            $value = strtolower($element[$variable]);
+
+            if(strpos($value, $searchVal) !== false){
+                var_dump($value);
+                $foundElements[] = $element;
+            }
+        }
+        var_dump("found");
+        var_dump($foundElements);
+        return $foundElements;
+    }
+
     public function initialPage($dataErrorView) {
 
         global $twig;
@@ -79,16 +108,10 @@ class AdminController
         $graphs = Model::getAllGraphs();
         $users = Model::getAllUsers();
 
-        $foundGraphs = null;
         if(isset($_GET['search']) and $_GET['search'] != ''){
             $searchVal = strtolower($_GET['search']);
-            foreach ($graphs as $graph){
-                $name = strtolower($graph['name']);
-                if(strpos($name, $searchVal) !== false){
-                    $foundGraphs[] = $graph;
-                }
-            }
-            $dataView = ['graphs' => $foundGraphs, 'userInfo' => $users];
+
+            $dataView = ['graphs' => $this->search($searchVal, $graphs, 'name'), 'userInfo' => $users];
         }else{
             $dataView = ['graphs' => $graphs, 'userInfo' => $users];
         }
