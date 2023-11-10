@@ -5,19 +5,13 @@ namespace model\factories;
 class UserFactory extends Factory
 {
     public static function create(array $data){
-        $user = new User();
-        $user->setId($data[0]);
-        $user->setPseudo($data[1]);
-        $user->setPassword($data[2]);
-        $user->setEmail($data[3]);
-        $user->setMyGraphs($data[4]);
-        $user->setFavGraphs($data[5]);
-        $user->setBan($data[6]);
-        $user->setFriends($data[7]);
-        return $user;
-    }
-
-    private static function getMyGraphs($idUsr){
-        return;
+        return new User($data[0],                               //id
+                        $data[1],                               //pseudo
+                        $data[2],                               //password
+                        $data[3],                               //email
+                        GraphModel::getMyGraphsId($data[0]),    //myGraphs
+                        GraphModel::getFavGraphsId($data[0]),   //favGraphs
+                        $data[4],                               //ban
+                        UserModel::getFriendsId($data[0]));     //friends
     }
 }

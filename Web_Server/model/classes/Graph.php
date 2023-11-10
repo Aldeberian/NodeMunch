@@ -7,18 +7,18 @@ class Graph
 
     private int $id;
     private string $name;
-    private User $creator;
+    private int $creator;
     private Thumbnail $thumbnail;
     private array $nodes;
 
     /**
      * @param int $id ID of the Graph
      * @param string|null $name Name of the Graph (can be null)
-     * @param User $creator User who created the Graph
+     * @param int $creator User who created the Graph
      * @param Thumbnail|null $pictId ID of the image preview (can be null)
      * @param array $nodes List of nodes
      */
-    public function __construct(int $id, ?string $name, User $creator, ?Thumbnail $thumbnail, array $nodes)
+    public function __construct(int $id, ?string $name, int $creator, ?Thumbnail $thumbnail, array $nodes)
     {
         $this->setId($id);
         ($name == null) ? $this->setName($id) : $this->setName($name); // If there's no name in parameters, the name of the graph is set to the id
@@ -68,9 +68,9 @@ class Graph
     }
 
     /**
-     * @param User $creator
+     * @param int $creator
      */
-    public function setCreator(User $creator): void
+    public function setCreator(int $creator): void
     {
         $this->creator = $creator;
     }
@@ -114,7 +114,7 @@ class Graph
         }
         return  "ID : ".strval($this->getId())."<br>".
                 "Name : ".$this->getName()."<br>".
-                "Creator : ".$this->getCreator()->getPseudo()."<br>".
+                "Creator : ".strval($this->getCreator())."<br>".
                 "Image preview ID : ".strval($this->getThumbnail()->getId())."<br>".
                 "Nodes : ".implode($nTab,", ")."<br>";
     }
