@@ -17,6 +17,9 @@ class AdminController
 
         $dataErrorView = [];
 
+//        array of strings that corresponds to the baseAdminMenu's options
+        $menuOptions = ['Users', 'Graphs'];
+
         try {
 
             $action = $_REQUEST['action'] ?? null;
@@ -24,6 +27,14 @@ class AdminController
             switch($action) {
 
                 case null :
+                    $this->baseAdminMenu($dataErrorView, $menuOptions);
+                    break;
+
+                case 'Users' :
+                    $this->displayUsers($dataErrorView);
+                    break;
+
+                case 'Graphs' :
                     $this->displayGraphs($dataErrorView);
                     break;
 
@@ -45,7 +56,7 @@ class AdminController
                 default :
 
                     $dataErrorView = "Call error";
-                    echo $twig->render('banUnBanUsers.html', ['dataErrorView' => $dataErrorView]);
+                    echo $twig->render('baseAdminMenu.html', ['dataErrorView' => $dataErrorView, 'menuOptions' => $menuOptions]);
                     break;
             }
         }
@@ -73,9 +84,7 @@ class AdminController
     {
         $foundElements = null;
 
-        var_dump($searchVal);
         foreach ($ensembleToSearch as $element){
-            var_dump($element);
 
             $value = strtolower($element[$variable]);
 
@@ -84,12 +93,20 @@ class AdminController
                 $foundElements[] = $element;
             }
         }
-        var_dump("found");
-        var_dump($foundElements);
         return $foundElements;
     }
 
-    public function initialPage($dataErrorView) {
+    public function baseAdminMenu($dataErrorView, $menuOptions) {
+
+        global $twig;
+
+        $dataView = ['menuOptions' => $menuOptions];
+
+        echo $twig->render('baseAdminMenu.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
+
+    }
+
+    public function displayUsers($dataErrorView) {
 
         global $twig;
 
@@ -97,7 +114,7 @@ class AdminController
 
         $dataView = ['users' => $users];
 
-        echo $twig->render('banUnBanUsers.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
+        echo $twig->render('displayUsers.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
 
 
@@ -134,7 +151,7 @@ class AdminController
 
         Model::banUser($idUser);
 
-        $this->initialPage($dataErrorView);
+        $this->displayUsers($dataErrorView);
     }
 
     public function unBanUser($dataErrorView) {
@@ -143,6 +160,6 @@ class AdminController
 
         Model::unBanUser($idUser);
 
-        $this->initialPage($dataErrorView);
+        $this->displayUsers($dataErrorView);
     }
 }
