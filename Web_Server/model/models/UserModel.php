@@ -2,12 +2,10 @@
 
 namespace model;
 
-use model\gateways\GeneratorData;
 use model\metier\Connection;
-use model\gateways\GatewayGraph;
 use model\gateways\GatewayUser;
 
-class Model
+class UserModel
 {
     /**
      *  Gets all users from the database via the GatewayUser.
@@ -17,16 +15,6 @@ class Model
         $gatewayUser = new GatewayUser(new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86"));
 
         return $gatewayUser->getDataUser();
-    }
-
-    /**
-     *  Gets all graphs from the database via the GatewayGraph.
-     */
-    public static function getAllGraphs() : array {
-
-        $gatewayGraph = new GatewayGraph(new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86"));
-
-        return $gatewayGraph->getDataGraph();
     }
 
     /**
@@ -57,21 +45,5 @@ class Model
         $gatewayUser = new GatewayUser(new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86"));
 
         $gatewayUser->updateUserDeBan($userId);
-    }
-
-
-    public static function deleteGraphById($graphId){
-
-        $gatewayGraph = new GatewayGraph(new Connection("mysql:host=londres.uca.local;dbname=dbbabrunet", "babrunet", "kalou86"));
-
-        $gatewayGraph->deleteGraph($graphId);
-    }
-
-
-    public static function getNodesRandom()
-    {
-        $genRandom = new GeneratorData();
-        $nodes = $genRandom->generateRandomNodes();
-        return $nodes;
     }
 }
