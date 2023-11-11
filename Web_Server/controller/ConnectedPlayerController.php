@@ -4,6 +4,8 @@ namespace controller;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
+use model\UserModel;
+use model\GraphModel;
 
 require_once('/vendor/autoload.php');
 
@@ -86,15 +88,15 @@ class ConnectedPlayerController
 
     public function editGraph($graphId)
     {
-        $graph = Model::getGraphById($graphId);
+        $graph = GraphModel::getGraphById($graphId);
         pass;
     }
 
     public function deleteMyGraph($userId,$graphId)
     {
-        $graph = Model::getGraphById($graphId);
+        $graph = GraphModel::getGraphById($graphId);
         if($graph->creator==$userId){
-            Model::deleteGraphById($graphId);
+            GraphModel::deleteGraphById($graphId);
         }
         else{
             $errTab[] = "You are not the author of the graph !";
@@ -109,15 +111,15 @@ class ConnectedPlayerController
     public function saveGraphInFav($graphId)
     {
         $user = &$_SESSION['userId'];
-        $user = Model::addFavGraph($user, $graphId);
-        Model::updateUser($user);
+        $user = GraphModel::addFavGraph($user, $graphId);
+        UserModel::updateUser($user);
     }
 
     public function likeGraph($graphId)
     {
         $user = &$_SESSION['userId'];
-        $user = Model::addLikeGraph($user, $graphId);
-        Model::updateUser($user);
+        $user = GraphModel::addLikeGraph($user, $graphId);
+        UserModel::updateUser($user);
     }
 
 }

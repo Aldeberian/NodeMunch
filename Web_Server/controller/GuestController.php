@@ -4,6 +4,8 @@ namespace controller;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
+use model\UserModel;
+use model\GraphModel;
 
 //En gros jsais pas comment installer twig sans les permissions de l'IUT
 //jsais pas c'est bizarre, faut que je code de chez moi les permissions de l'IUT sont infames
@@ -69,7 +71,7 @@ class GuestController
     }
 
     public function getGraph(int $graphId) {
-        $data = Model::getDataGraphsFromGateways();
+        $data = GraphModel::getDataGraphsFromGateways();
         foreach($data as $graph){
             if($graph->getId()==$graphId){
                 return $graph;
@@ -78,7 +80,7 @@ class GuestController
     }
 
     public function displayProfile(int $userId) {
-        $data = Model::getDataUsersFromGateways();
+        $data = UserModel::getDataUsersFromGateways();
         foreach($data as $user){
             if($user->getId()==$userId){
                 return $user;

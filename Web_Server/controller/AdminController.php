@@ -3,7 +3,9 @@
 namespace controller;
 
 use Exception;
-use model\Model;
+use model\UserModel;
+use model\GraphModel;
+use model\NodeModel;
 use PDOException;
 
 class AdminController
@@ -113,7 +115,7 @@ class AdminController
 
         global $twig;
 
-        $users = Model::getAllUsers();
+        $users = UserModel::getAllUsers();
 
         $dataView = ['users' => $users];
 
@@ -125,8 +127,8 @@ class AdminController
 
         global $twig;
 
-        $graphs = Model::getAllGraphs();
-        $users = Model::getAllUsers();
+        $graphs = GraphModel::getAllGraphs();
+        $users = UserModel::getAllUsers();
 
         if(isset($_GET['search']) and $_GET['search'] != ''){
             $searchVal = strtolower($_GET['search']);
@@ -143,7 +145,7 @@ class AdminController
 
         $idGraph = $_POST['idGraph'];
 
-        Model::deleteGraphById($idGraph);
+        GraphModel::deleteGraphById($idGraph);
 
         $this->displayGraphs($dataErrorView);
     }
@@ -152,7 +154,7 @@ class AdminController
 
         $idUser = $_POST['idUser'];
 
-        Model::banUser($idUser);
+        UserModel::banUser($idUser);
 
         $this->displayUsers($dataErrorView);
     }
@@ -161,7 +163,7 @@ class AdminController
 
         $idUser = $_POST['idUser'];
 
-        Model::unBanUser($idUser);
+        UserModel::unBanUser($idUser);
 
         $this->displayUsers($dataErrorView);
     }
@@ -171,7 +173,7 @@ class AdminController
     public function affNodes($dataErrorView)
     {
         global $twig;
-        $nodes = Model::getNodesRandom();
+        $nodes = NodeModel::getNodesRandom();
         $dataView = ['nodes' => $nodes];
         echo $twig->render('test.html', ['dataView' => $dataView, 'dataErrorView' => $dataErrorView]);
     }
