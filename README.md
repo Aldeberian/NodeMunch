@@ -36,7 +36,7 @@ To be implemented next :
 
 - Bootstrap
 
-- JavaScript
+- TypeScript
 
 - React
 
